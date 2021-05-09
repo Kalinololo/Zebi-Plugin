@@ -1,6 +1,7 @@
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.command.*;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -49,6 +50,24 @@ public class Commands implements CommandExecutor{
                         }
                     }
                 }
+            }
+        }else if(command.getName().equals("fiou")){
+            if(sender instanceof Player){
+                if(args.length == 0){
+                    return true;
+                }
+                Location pos = ((Player) sender).getLocation();
+
+                int max = Integer.parseInt(args[0]);
+                for (int i = 0; i < max; i++) {
+                    ((Player) sender).getWorld().spawnEntity(pos, EntityType.PIG_ZOMBIE);
+                }
+            }
+        }else if(command.getName().equals("spawn")){
+            if(sender instanceof Player){
+                Player p = (Player) sender;
+                Location loc = p.getLocation();
+
             }
         }
 

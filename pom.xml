@@ -26,6 +26,10 @@
             <id>Bukkit Official</id>
             <url>https://repo.bukkit.org/content/repositories/public</url>
         </repository>
+        <repository>
+            <id>spigotmc-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
     </repositories>
 
 

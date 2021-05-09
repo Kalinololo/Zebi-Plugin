@@ -19,3 +19,8 @@ commands:
     description: gn all
     usage: /ez
     permission: Zebiiii.ezpermission
+
+  fiou:
+    description: Youhou des porcelets !
+    usage: /fiou <number>
+    permission: Zebiiii.fioupermission
