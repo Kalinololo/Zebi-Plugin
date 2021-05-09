@@ -1,0 +1,21 @@
+main: Test
+name: Zebiiii
+version: 1.0
+author: me
+description: Un plugin de bg zeubi
+
+commands:
+  kit:
+    description: Kit Swaper rien de plus
+    usage: /kit
+    permission: Zebiiii.kitswaperpermission
+
+  surfacerandom:
+    description: Go to the surface at a random X
+    usage: /surfacerandom
+    permission: Zebiiii.surfacerandompermission
+
+  ez:
+    description: gn all
+    usage: /ez
+    permission: Zebiiii.ezpermission
