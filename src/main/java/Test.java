@@ -1,3 +1,4 @@
+import org.bukkit.command.Command;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Test extends JavaPlugin {
