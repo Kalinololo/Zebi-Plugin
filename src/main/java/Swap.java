@@ -63,6 +63,13 @@ public class Swap implements Listener{
         }
     }
 
-
+    @EventHandler
+    public void onSign(PlayerInteractEvent e){
+        if(e.getClickedBlock().getType() == Material.SIGN){
+            for(int i = 0; i<5; i++) {
+                e.getPlayer().getServer().broadcastMessage("La partie commence dans " + i);
+            }
+        }
+    }
 
 }
