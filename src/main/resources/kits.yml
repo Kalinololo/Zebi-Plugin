@@ -1,0 +1,17 @@
+SnowballMan:
+  description:
+  items:
+  ability:
+
+Chute:
+  description: Wesh
+  items:
+    - SNOW_BALL 24
+    - IRON_SPADE 1
+  ability:
+
+Meilleur:
+  description:
+  items:
+    - CHAINMAIL_BOOTS 1
+  ability:

@@ -1,12 +1,25 @@
-import org.bukkit.command.Command;
+package plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Test extends JavaPlugin {
+import java.io.File;
+
+public class HungerGames extends JavaPlugin {
+
+    public static JavaPlugin plugin;
+
+    public static File kitFile;
 
     @Override
     public void onEnable() {
+        kitFile = new File(getDataFolder(), "kits.yml");
+        if(!kitFile.exists()){
+            saveResource("kits.yml", true);
+        }
+        plugin = this;
+
         getServer().getPluginManager().registerEvents(new Swap(), this);
-        this.getCommand("kit").setExecutor(new Commands());
+
+        this.getCommand("kit").setExecutor(new CommandKit());
         this.getCommand("surfacerandom").setExecutor(new Commands());
         this.getCommand("ez").setExecutor(new Commands());
         this.getCommand("fiou").setExecutor(new Commands());

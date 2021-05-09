@@ -1,4 +1,4 @@
-main: Test
+main: plugin.HungerGames
 name: Zebiiii
 version: 1.0
 author: me
@@ -6,9 +6,9 @@ description: Un plugin de bg zeubi
 
 commands:
   kit:
-    description: Kit Swaper rien de plus
+    description: Selectionne ton kit
     usage: /kit
-    permission: Zebiiii.kitswaperpermission
+    permission: Zebiiii.kitpermission
 
   surfacerandom:
     description: Go to the surface at a random X

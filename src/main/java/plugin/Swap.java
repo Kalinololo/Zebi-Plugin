@@ -1,5 +1,9 @@
+package plugin;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -7,28 +11,19 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+
+import java.util.Date;
 
 public class Swap implements Listener{
 
     @EventHandler
     public void onZebi(EntityDamageByEntityEvent e){
         if(e.getDamager() instanceof Snowball){
-            if(((Snowball) e.getDamager()).getShooter() instanceof Player){
-                Snowball bouboule = (Snowball) e.getDamager();
-
-                Entity shooter = (Entity) bouboule.getShooter();
-                Entity shooted = e.getEntity();
-
-                Location posShooted = shooted.getLocation();
-
-                shooted.teleport(shooter.getLocation());
-                shooter.teleport(posShooted);
-            }else{
                 Entity k = e.getEntity();
                 k.setVelocity(e.getDamager().getVelocity());
-            }
-
         }
     }
 
@@ -46,11 +41,6 @@ public class Swap implements Listener{
             }else if(e.getItem().getType() == Material.RED_MUSHROOM){
                 Vector dir = e.getPlayer().getEyeLocation().getDirection();
                 e.getPlayer().setVelocity(new Vector(dir.getX()*0.4, 1, dir.getZ()*0.4));
-            }
-        }
-        if(e.getClickedBlock().getType() == Material.SIGN){
-            for(int i = 0; i<5; i++) {
-                e.getPlayer().getServer().broadcastMessage("La partie commence dans " + i);
             }
         }
     }
