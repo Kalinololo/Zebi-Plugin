@@ -1,7 +1,7 @@
 main: plugin.HungerGames
 name: Zebiiii
 version: 1.0
-author: me
+author: Kalinolololololololololololo & Triplololololololololololo
 description: Un plugin de bg zeubi
 
 commands:
@@ -18,9 +18,9 @@ commands:
   ez:
     description: gn all
     usage: /ez
-    permission: Zebiiii.ezpermission
+    permission: Zebiiii.ez
 
   fiou:
     description: Youhou des porcelets !
     usage: /fiou <number>
-    permission: Zebiiii.fioupermission
+    permission: Zebiiii.a

@@ -2,18 +2,11 @@ package plugin;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
-import plugin.HungerGames;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import org.bukkit.permissions.PermissionAttachment;
+import java.util.*;
 
 
 public class Kit{
@@ -28,9 +21,12 @@ public class Kit{
     public Kit(String kit, Player p){
         this.kit = kit;
         this.player = p;
+
         if(playerSelectedKit.containsKey(p)){
+            setPermission(p, kit, true);
             playerSelectedKit.replace(p, kit);
         }else{
+            setPermission(p, kit, false);
             playerSelectedKit.put(p, kit);
         }
     }
@@ -60,8 +56,26 @@ public class Kit{
         return config.getStringList(kit + ".ability");
     }
 
+    public static List<String> getKitPerms(String kit){
+        return config.getStringList(kit + ".permission");
+    }
+
     public static void removeSelectedKit(Player p){
         playerSelectedKit.remove(p);
+    }
+
+    public static void setPermission(Player p, String kit, boolean change){
+        PermissionAttachment pperms = HungerGames.perms.get(p.getUniqueId());
+
+        if(change){
+            for (String perm:getKitPerms(playerSelectedKit.get(p))) {
+                pperms.unsetPermission(perm);
+            }
+        }
+
+        for (String perm:getKitPerms(kit)) {
+            pperms.setPermission(perm, true);
+        }
     }
 
 }

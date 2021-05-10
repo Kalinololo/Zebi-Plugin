@@ -2,13 +2,19 @@ package plugin;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.util.Vector;
 
 import java.util.Date;
@@ -83,6 +89,35 @@ public class Swap implements Listener{
             Kit.removeSelectedKit(e.getPlayer());
         }
         cooldownManager.remove(e.getPlayer());
+        HungerGames.perms.remove(e.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void onConnect(PlayerJoinEvent e){
+        Player p = e.getPlayer();
+        PermissionAttachment attachment = p.addAttachment(HungerGames.plugin);
+        HungerGames.perms.put(p.getUniqueId(), attachment);
+
+        p.getInventory().addItem(getKitSelector());
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e){
+        e.getEntity().getWorld().strikeLightningEffect(e.getEntity().getLocation());
+    }
+
+
+    private ItemStack getKitSelector(){
+        ItemStack plume = new ItemStack(Material.FEATHER, 1);
+        ItemMeta ks = plume.getItemMeta();
+
+        ks.setDisplayName("&9 Sélecteur de kit");
+        ks.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        ks.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+
+        plume.setItemMeta(ks);
+
+        return plume;
     }
 
     private boolean isCooldowned(Player p, int cooldown){

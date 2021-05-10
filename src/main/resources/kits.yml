@@ -5,6 +5,7 @@ SnowballMan:
     - IRON_SPADE 1
   ability:
     - BOUBOULE
+  permission:
 
 Jumper:
   description: La mort vient du ciel...
@@ -13,9 +14,13 @@ Jumper:
   ability:
     - FREEFALL
     - JUMPER
+  permission:
+    - Zebiiii.a
 
 Meilleur:
   description:
   items:
     - CHAINMAIL_BOOTS 1
   ability:
+  permission:
+    - Zebiiii.ez

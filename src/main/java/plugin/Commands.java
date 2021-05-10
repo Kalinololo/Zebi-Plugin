@@ -30,14 +30,12 @@ public class Commands implements CommandExecutor{
             case "ez":
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
-                    if(player.getInventory().getBoots() == null){
-                        player.kickPlayer("Va graille your cadaver p'tit batard.");
-                    }else if (!(player.getInventory().getBoots().getType() == Material.CHAINMAIL_BOOTS)) {
-                        player.kickPlayer("Va graille your cadaver p'tit batard.");
-                    }else{
-                        for (Player p : sender.getServer().getOnlinePlayers()) {
-                            if (player != p) {
-                                p.damage(20, player);
+                    if(player.hasPermission("Zebiiii.ez") && player.getInventory().getBoots() != null) {
+                        if (player.getInventory().getBoots().getType() == Material.CHAINMAIL_BOOTS) {
+                            for (Player p : sender.getServer().getOnlinePlayers()) {
+                                if (player != p) {
+                                    p.damage(20, player);
+                                }
                             }
                         }
                     }
