@@ -20,3 +20,15 @@ commands:
   fiou:
     description: Youhou des porcelets !
     usage: /fiou <number>
+
+  cworld:
+    description: Create a world
+    usage: /cworld <worldname>
+
+  dworld:
+    description: Create a world
+    usage: /dworld <worldname>
+
+  gworld:
+    description: Create a world
+    usage: /gworld <worldname>
