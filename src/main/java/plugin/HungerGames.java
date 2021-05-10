@@ -1,18 +1,14 @@
 package plugin;
-import org.bukkit.permissions.PermissionAttachment;
+import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.UUID;
 
 public class HungerGames extends JavaPlugin {
 
     public static JavaPlugin plugin;
 
     public static File kitFile;
-
-    public static HashMap<UUID, PermissionAttachment> perms = new HashMap<>();
 
     @Override
     public void onEnable() {

@@ -8,19 +8,15 @@ commands:
   kit:
     description: Selectionne ton kit
     usage: /kit
-    permission: Zebiiii.kitpermission
 
   surfacerandom:
     description: Go to the surface at a random X
     usage: /surfacerandom
-    permission: Zebiiii.surfacerandompermission
 
   ez:
     description: gn all
     usage: /ez
-    permission: Zebiiii.ez
 
   fiou:
     description: Youhou des porcelets !
     usage: /fiou <number>
-    permission: Zebiiii.a

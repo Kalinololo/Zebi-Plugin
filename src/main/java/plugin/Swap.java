@@ -89,15 +89,13 @@ public class Swap implements Listener{
             Kit.removeSelectedKit(e.getPlayer());
         }
         cooldownManager.remove(e.getPlayer());
-        HungerGames.perms.remove(e.getPlayer().getUniqueId());
     }
 
     @EventHandler
     public void onConnect(PlayerJoinEvent e){
         Player p = e.getPlayer();
-        PermissionAttachment attachment = p.addAttachment(HungerGames.plugin);
-        HungerGames.perms.put(p.getUniqueId(), attachment);
-
+        p.getInventory().clear();
+        p.getInventory().setArmorContents(null);
         p.getInventory().addItem(getKitSelector());
     }
 

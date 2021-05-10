@@ -23,10 +23,8 @@ public class Kit{
         this.player = p;
 
         if(playerSelectedKit.containsKey(p)){
-            setPermission(p, kit, true);
             playerSelectedKit.replace(p, kit);
         }else{
-            setPermission(p, kit, false);
             playerSelectedKit.put(p, kit);
         }
     }
@@ -35,6 +33,7 @@ public class Kit{
     public void fillInventory(){
         List<String> items = config.getStringList(kit + ".items");
         player.getInventory().clear();
+        player.getInventory().setArmorContents(null);
 
         for (String s: items) {
             String[] div = s.split(" ");
@@ -62,20 +61,6 @@ public class Kit{
 
     public static void removeSelectedKit(Player p){
         playerSelectedKit.remove(p);
-    }
-
-    public static void setPermission(Player p, String kit, boolean change){
-        PermissionAttachment pperms = HungerGames.perms.get(p.getUniqueId());
-
-        if(change){
-            for (String perm:getKitPerms(playerSelectedKit.get(p))) {
-                pperms.unsetPermission(perm);
-            }
-        }
-
-        for (String perm:getKitPerms(kit)) {
-            pperms.setPermission(perm, true);
-        }
     }
 
 }
