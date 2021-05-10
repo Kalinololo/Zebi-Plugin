@@ -93,7 +93,7 @@ public class Swap implements Listener{
                 return true;
             }else{
                 double timeRemain = (cooldown*0.001)-((now.getTime()-cooldownManager.get(p).getTime())*0.001);
-                p.sendMessage("§6 Vous devez encore attendre " + timeRemain + " secondes.");
+                p.sendMessage("§6 Vous devez encore attendre " + (double) Math.round(timeRemain * 100)/100 + " secondes.");
                 return false;
             }
         }else{
