@@ -1,14 +1,18 @@
 SnowballMan:
-  description:
-  items:
-  ability:
-
-Chute:
-  description: Wesh
+  description: Swap
   items:
     - SNOW_BALL 24
     - IRON_SPADE 1
   ability:
+    - BOUBOULE
+
+Jumper:
+  description: La mort vient du ciel...
+  items:
+    - RED_MUSHROOM 1
+  ability:
+    - FREEFALL
+    - JUMPER
 
 Meilleur:
   description:

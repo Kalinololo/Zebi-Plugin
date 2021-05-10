@@ -10,6 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import plugin.HungerGames;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -19,11 +21,18 @@ public class Kit{
     private String kit;
     private Player player;
 
-    private static FileConfiguration config = YamlConfiguration.loadConfiguration(HungerGames.kitFile);
+    private static HashMap<Player, String> playerSelectedKit = new HashMap<>();
+
+    private static final FileConfiguration config = YamlConfiguration.loadConfiguration(HungerGames.kitFile);
 
     public Kit(String kit, Player p){
         this.kit = kit;
         this.player = p;
+        if(playerSelectedKit.containsKey(p)){
+            playerSelectedKit.replace(p, kit);
+        }else{
+            playerSelectedKit.put(p, kit);
+        }
     }
 
 
@@ -41,6 +50,18 @@ public class Kit{
 
     public static Set<String> listKits(){
         return config.getKeys(false);
+    }
+
+    public static String getKit(Player p){
+        return playerSelectedKit.getOrDefault(p, null);
+    }
+
+    public static List<String> getKitAbilities(String kit){
+        return config.getStringList(kit + ".ability");
+    }
+
+    public static void removeSelectedKit(Player p){
+        playerSelectedKit.remove(p);
     }
 
 }
