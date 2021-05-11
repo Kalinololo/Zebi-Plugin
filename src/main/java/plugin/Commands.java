@@ -64,6 +64,7 @@ public class Commands implements CommandExecutor{
             case "dworld":
                 if(sender.isOp()){
                     sender.getServer().unloadWorld(args[0], false);
+                    sender.getServer().getWorld(args[0]).getWorldFolder().delete();
                 }
                 break;
             case "gworld":
