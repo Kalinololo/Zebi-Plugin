@@ -28,6 +28,7 @@ public class HungerGames extends JavaPlugin {
         this.getCommand("cworld").setExecutor(new Commands());
         this.getCommand("dworld").setExecutor(new Commands());
         this.getCommand("gworld").setExecutor(new Commands());
+        this.getCommand("lworld").setExecutor(new Commands());
     }
 
     @Override
