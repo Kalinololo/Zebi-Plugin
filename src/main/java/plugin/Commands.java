@@ -2,6 +2,7 @@ package plugin;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.*;
 import org.bukkit.entity.EntityType;
@@ -71,6 +72,15 @@ public class Commands implements CommandExecutor{
                     player.teleport(sender.getServer().getWorld(args[0]).getSpawnLocation());
                 }
                 break;
+            case "lworld":
+                if(sender.isOp()){
+                    Player player = (Player) sender;
+                    String list = "Worlds : ";
+
+                    for (World w:player.getServer().getWorlds()) {
+                        list += w.getName() + " - ";
+                    }
+                }
         }
 
         return true;

@@ -109,7 +109,7 @@ public class Swap implements Listener{
         ItemStack plume = new ItemStack(Material.FEATHER, 1);
         ItemMeta ks = plume.getItemMeta();
 
-        ks.setDisplayName("&9 Sélecteur de kit");
+        ks.setDisplayName("§9 Sélecteur de kit");
         ks.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         ks.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
 

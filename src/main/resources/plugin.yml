@@ -26,9 +26,13 @@ commands:
     usage: /cworld <worldname>
 
   dworld:
-    description: Create a world
+    description: Delete a world
     usage: /dworld <worldname>
 
   gworld:
-    description: Create a world
+    description: Go to a world
     usage: /gworld <worldname>
+
+  lworld:
+    description: List worlds
+    usage: /lworld
