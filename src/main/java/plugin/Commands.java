@@ -80,6 +80,8 @@ public class Commands implements CommandExecutor{
                     for (World w:player.getServer().getWorlds()) {
                         list += w.getName() + " - ";
                     }
+
+                    player.sendMessage(list);
                 }
         }
 
