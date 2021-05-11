@@ -24,7 +24,6 @@ public class HungerGames extends JavaPlugin {
         this.getCommand("surfacerandom").setExecutor(new Commands());
         this.getCommand("ez").setExecutor(new Commands());
         this.getCommand("fiou").setExecutor(new Commands());
-
         this.getCommand("cworld").setExecutor(new Commands());
         this.getCommand("dworld").setExecutor(new Commands());
         this.getCommand("gworld").setExecutor(new Commands());

@@ -8,6 +8,8 @@ import org.bukkit.command.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
+import java.io.File;
+
 public class Commands implements CommandExecutor{
 
     @Override
@@ -59,12 +61,14 @@ public class Commands implements CommandExecutor{
             case "cworld":
                 if(sender.isOp()){
                     sender.getServer().createWorld(new WorldCreator(args[0]));
+                    sender.sendMessage("§5Le monde §l"+ args[0] +" a été §lcréé avec succés.");
                 }
                 break;
             case "dworld":
                 if(sender.isOp()){
                     sender.getServer().unloadWorld(args[0], false);
-                    sender.getServer().getWorld(args[0]).getWorldFolder().delete();
+                    new File(sender.getServer().getWorldContainer().getPath() + "/" + args[0]).deleteOnExit();
+                    sender.sendMessage("§5Le monde a été §lsupprimé avec succés.");
                 }
                 break;
             case "gworld":
@@ -76,10 +80,9 @@ public class Commands implements CommandExecutor{
             case "lworld":
                 if(sender.isOp()){
                     Player player = (Player) sender;
-                    String list = "Worlds : ";
-
+                    String list = "§5Worlds : §l";
                     for (World w:player.getServer().getWorlds()) {
-                        list += w.getName() + " - ";
+                        list += w.getName() + " - §l";
                     }
 
                     player.sendMessage(list);

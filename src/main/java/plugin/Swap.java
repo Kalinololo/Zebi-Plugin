@@ -64,6 +64,9 @@ public class Swap implements Listener{
                     Vector dir = e.getPlayer().getEyeLocation().getDirection();
                     e.getPlayer().setVelocity(new Vector(dir.getX()*0.4, 1, dir.getZ()*0.4));
                 }
+            }else if(e.getItem().getType() == getKitSelector().getType()){
+                e.getPlayer().sendMessage("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                e.getPlayer().openInventory(Kit.getKitMenu());
             }
         }
     }
@@ -118,18 +121,18 @@ public class Swap implements Listener{
         return plume;
     }
 
-    private boolean isCooldowned(Player p, int cooldown){
+    private boolean isCooldowned(Player p, int cooldown) {
         Date now = new Date(System.currentTimeMillis());
-        if(cooldownManager.containsKey(p)){
-            if(now.getTime()-cooldownManager.get(p).getTime() >= cooldown){
+        if (cooldownManager.containsKey(p)) {
+            if (now.getTime() - cooldownManager.get(p).getTime() >= cooldown) {
                 cooldownManager.replace(p, now);
                 return true;
-            }else{
-                double timeRemain = (cooldown*0.001)-((now.getTime()-cooldownManager.get(p).getTime())*0.001);
-                p.sendMessage("§6 Vous devez encore attendre " + (double) Math.round(timeRemain * 100)/100 + " secondes.");
+            } else {
+                double timeRemain = (cooldown * 0.001) - ((now.getTime() - cooldownManager.get(p).getTime()) * 0.001);
+                p.sendMessage("§6 Vous devez encore attendre " + (double) Math.round(timeRemain * 100) / 100 + " secondes.");
                 return false;
             }
-        }else{
+        } else {
             cooldownManager.put(p, now);
             return true;
         }

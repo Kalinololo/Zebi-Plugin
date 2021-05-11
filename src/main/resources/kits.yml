@@ -5,6 +5,7 @@ SnowballMan:
     - IRON_SPADE 1
   ability:
     - BOUBOULE
+  showItem: SNOW_BALL
 
 Jumper:
   description: La mort vient du ciel...
@@ -13,6 +14,7 @@ Jumper:
   ability:
     - FREEFALL
     - JUMPER
+  showItem: FIREWORK
 
 Meilleur:
   description:
@@ -20,9 +22,4 @@ Meilleur:
     - CHAINMAIL_BOOTS 1
   ability:
     - SEECRET
-
-Fiou:
-  description:
-  items:
-  ability:
-    - FIOU
+  showItem: BOOK
