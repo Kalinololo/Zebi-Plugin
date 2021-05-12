@@ -23,7 +23,7 @@ public class Kit{
     private static HashMap<Player, String> playerSelectedKit = new HashMap<>();
 
     private static final FileConfiguration config = YamlConfiguration.loadConfiguration(HungerGames.kitFile);
-    public static final Inventory kitMenu = getKitMenu();
+    public static Inventory kitMenu;
 
     public Kit(String kit, Player p){
         this.kit = kit;
@@ -74,22 +74,29 @@ public class Kit{
         return config.getString(kit + ".description");
     }
 
-
+    public static void setKitMenu(){
+        kitMenu = getKitMenu();
+    }
 
     public static void removeSelectedKit(Player p){
         playerSelectedKit.remove(p);
     }
 
-    public static Inventory getKitMenu(){
-        Inventory menu = Bukkit.createInventory(null, (int) (Math.ceil(listKits().size()/9)*9), "Sélectionne ton kit !");
-        for (String kit: listKits()) {
+    private static Inventory getKitMenu(){
+        Set<String> kits = Kit.listKits();
+        Inventory menu = Bukkit.createInventory(null, (int) (Math.ceil(kits.size()/9)*9), "Sélectionne ton kit !");
+
+        ItemStack[] inventoryContent = new ItemStack[kits.size()];
+        int i = 0;
+
+        for (String kit : kits) {
             ItemStack item = new ItemStack(Material.getMaterial(getKitImage(kit)));
             ItemMeta meta = item.getItemMeta();
             List<String> itemDesc = new ArrayList<>();
 
             itemDesc.add(getKitDesc(kit));
 
-            for (String itemName:getKitItem(kit)) {
+            for (String itemName : getKitItem(kit)) {
                 itemDesc.add(" - " + itemName.split(" ")[0]);
             }
 
@@ -100,9 +107,10 @@ public class Kit{
 
             item.setItemMeta(meta);
 
-            menu.addItem(item);
+            inventoryContent[i] = item;
+            i++;
         }
-
+        menu.addItem(inventoryContent);
         return menu;
     }
 

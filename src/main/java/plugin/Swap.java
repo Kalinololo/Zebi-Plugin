@@ -66,7 +66,7 @@ public class Swap implements Listener{
                 }
             }else if(e.getItem().getType() == getKitSelector().getType()){
                 e.getPlayer().sendMessage("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                e.getPlayer().openInventory(Kit.getKitMenu());
+                e.getPlayer().openInventory(Kit.kitMenu);
             }
         }
     }

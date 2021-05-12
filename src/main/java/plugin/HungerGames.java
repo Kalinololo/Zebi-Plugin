@@ -18,6 +18,8 @@ public class HungerGames extends JavaPlugin {
         }
         plugin = this;
 
+        Kit.setKitMenu();
+
         getServer().getPluginManager().registerEvents(new Swap(), this);
 
         this.getCommand("kit").setExecutor(new CommandKit());
