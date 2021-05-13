@@ -17,7 +17,7 @@ Jumper:
   showItem: FIREWORK
 
 Meilleur:
-  description:
+  description: Test
   items:
     - CHAINMAIL_BOOTS 1
   ability:

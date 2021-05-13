@@ -23,7 +23,6 @@ public class Kit{
     private static HashMap<Player, String> playerSelectedKit = new HashMap<>();
 
     private static final FileConfiguration config = YamlConfiguration.loadConfiguration(HungerGames.kitFile);
-    public static Inventory kitMenu;
 
     public Kit(String kit, Player p){
         this.kit = kit;
@@ -74,23 +73,16 @@ public class Kit{
         return config.getString(kit + ".description");
     }
 
-    public static void setKitMenu(){
-        kitMenu = getKitMenu();
-    }
-
     public static void removeSelectedKit(Player p){
         playerSelectedKit.remove(p);
     }
 
-    private static Inventory getKitMenu(){
+    public static Inventory getKitMenu(){
         Set<String> kits = Kit.listKits();
-        Inventory menu = Bukkit.createInventory(null, (int) (Math.ceil(kits.size()/9)*9), "Sélectionne ton kit !");
-
-        ItemStack[] inventoryContent = new ItemStack[kits.size()];
-        int i = 0;
+        Inventory menu = Bukkit.createInventory(null, 54, "Sélectionne ton kit !");
 
         for (String kit : kits) {
-            ItemStack item = new ItemStack(Material.getMaterial(getKitImage(kit)));
+            ItemStack item = new ItemStack(Material.getMaterial(getKitImage(kit)), 1);
             ItemMeta meta = item.getItemMeta();
             List<String> itemDesc = new ArrayList<>();
 
@@ -107,10 +99,9 @@ public class Kit{
 
             item.setItemMeta(meta);
 
-            inventoryContent[i] = item;
-            i++;
+            menu.addItem(item);
         }
-        menu.addItem(inventoryContent);
+
         return menu;
     }
 

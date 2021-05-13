@@ -1,5 +1,7 @@
 package plugin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -10,11 +12,11 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.permissions.PermissionAttachment;
 import org.bukkit.util.Vector;
 
 import java.util.Date;
@@ -60,13 +62,19 @@ public class Swap implements Listener{
                 Entity bouboule = player.getWorld().spawnEntity(pos, EntityType.SNOWBALL);
                 bouboule.setVelocity(new Vector(player.getEyeLocation().getDirection().getX()*1.1, player.getEyeLocation().getDirection().getY()*1.1, player.getEyeLocation().getDirection().getZ()*1.1));
             }else if(e.getItem().getType() == Material.RED_MUSHROOM && Kit.getKitAbilities(Kit.getKit(e.getPlayer())).contains("JUMPER")){
-                if(isCooldowned(e.getPlayer(), 500)){
+                if(isCooldowned(e.getPlayer(), 800)){
                     Vector dir = e.getPlayer().getEyeLocation().getDirection();
                     e.getPlayer().setVelocity(new Vector(dir.getX()*0.4, 1, dir.getZ()*0.4));
                 }
-            }else if(e.getItem().getType() == getKitSelector().getType()){
-                e.getPlayer().sendMessage("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                e.getPlayer().openInventory(Kit.kitMenu);
+            }else if(e.getItem().getType() == getKitSelector().getType()) {
+                e.getPlayer().openInventory(Kit.getKitMenu());
+            }else if(e.getItem().getType() == Material.COMPASS){
+                Player player = e.getPlayer();
+                double distance = player.getLocation().distance(getNearestPlayer(player).getLocation());
+                player.sendMessage("§6Le joueur le plus proche est à §l" + (int) distance + " blocs.");
+                if((int) distance == 0){
+                    player.sendMessage("§6Il faut ouvrir les yeux, tu fais pas d'effort la.");
+                }
             }
         }
     }
@@ -100,11 +108,116 @@ public class Swap implements Listener{
         p.getInventory().clear();
         p.getInventory().setArmorContents(null);
         p.getInventory().addItem(getKitSelector());
+
+        Bukkit.getScheduler().runTaskTimer(HungerGames.plugin, () -> compasTrack(e.getPlayer()), 1, 1);
     }
 
     @EventHandler
-    public void onDeath(PlayerDeathEvent e){
-        e.getEntity().getWorld().strikeLightningEffect(e.getEntity().getLocation());
+    public void onKitSelect(InventoryClickEvent e){
+        if(e.getInventory().getName().equals(Kit.getKitMenu().getName())){
+            new Kit(e.getCurrentItem().getItemMeta().getDisplayName(), (Player) e.getWhoClicked()).fillInventory();
+            e.getWhoClicked().closeInventory();
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent e){
+        if(Kit.listKits().contains(e.getItemDrop().getItemStack().getItemMeta().getDisplayName())){
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onDeath(EntityDamageEvent e){
+        if(e.getEntity() instanceof Player){
+            Player damaged = (Player) e.getEntity();
+
+            if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                if (Kit.getKitAbilities(Kit.getKit(damaged)).contains("FREEFALL")) {
+                    double damage = e.getDamage();
+                    e.setDamage(0);
+                    for (Entity enemy : e.getEntity().getNearbyEntities(4, 4, 4)) {
+                        if (enemy instanceof LivingEntity) {
+                            ((LivingEntity) enemy).damage(damage);
+                        }
+                    }
+                }
+            }
+
+            if(damaged.getHealth() - e.getDamage() <= 0){
+                damaged.getWorld().strikeLightningEffect(damaged.getLocation());
+                damaged.setGameMode(GameMode.SPECTATOR);
+                e.setCancelled(true);
+
+
+                if(Kit.getKitAbilities(Kit.getKit(damaged.getKiller())).contains("VAMPIRE")){
+                    Player killer = damaged.getKiller();
+                    killer.setHealth(killer.getHealth()+9);
+                }
+                int nbPlayerAlive = 0;
+                Player lastAlive = null;
+
+                for (Player p: e.getEntity().getServer().getOnlinePlayers()) {
+                    if(p.getGameMode() == GameMode.SURVIVAL) nbPlayerAlive++;
+                    lastAlive = p;
+                    if(nbPlayerAlive > 1) return;
+                }
+
+                if(nbPlayerAlive == 1){
+                    lastAlive.setGameMode(GameMode.CREATIVE);
+                    Player finalLastAlive = lastAlive;
+                    HungerGames.plugin.getServer().getScheduler().runTaskTimer(HungerGames.plugin, () -> e.getEntity().getServer().broadcastMessage("§l" + finalLastAlive.getName() + " a gagné la partie, youhou, super, génial, trop fort le type ! (Vieux bot)"), 3, 3);
+
+                    //TODO : ------------------ Fin de partie
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBlockDestroy(BlockBreakEvent e){
+        /*
+        if(e.getBlock().getType() == Material.WOOD){
+            Location actualBlock = e.getBlock().getLocation();
+            Material actuelBlockMaterial = e.getBlock().getType();
+
+            Location locDroite = new Location(e.getPlayer().getWorld(), actualBlock.getX() + 1,actualBlock.getY(), actualBlock.getZ());
+            Location locGauche = new Location(e.getPlayer().getWorld(), actualBlock.getX() - 1,actualBlock.getY(), actualBlock.getZ());
+            Location locHaut = new Location(e.getPlayer().getWorld(), actualBlock.getX(),actualBlock.getY(), actualBlock.getZ() + 1);
+            Location locBas = new Location(e.getPlayer().getWorld(), actualBlock.getX(),actualBlock.getY(), actualBlock.getZ() - 1);
+
+            boolean droite = e.getBlock().getWorld().getBlockAt(locDroite).getType() == e.getBlock().getType();
+            boolean gauche = e.getBlock().getWorld().getBlockAt(locGauche).getType() == e.getBlock().getType();
+            boolean haut = e.getBlock().getWorld().getBlockAt(locHaut).getType() == e.getBlock().getType();
+            boolean bas = e.getBlock().getWorld().getBlockAt(locBas).getType() == e.getBlock().getType();
+
+            while (actuelBlockMaterial == e.getBlock().getType()){
+                e.getPlayer().getWorld().getBlockAt(actualBlock).breakNaturally();
+                if(droite){
+                    e.getPlayer().getWorld().getBlockAt(locDroite).breakNaturally();
+                }
+                if(gauche){
+                    e.getPlayer().getWorld().getBlockAt(locGauche).breakNaturally();
+                }
+                if(haut){
+                    e.getPlayer().getWorld().getBlockAt(locHaut).breakNaturally();
+                }
+                if(bas){
+                    e.getPlayer().getWorld().getBlockAt(locBas).breakNaturally();
+                }
+
+                actualBlock.setY(actualBlock.getY() + 1);
+                locDroite.setY(locDroite.getY() + 1);
+                locGauche.setY(locGauche.getY() + 1);
+                locHaut.setY(locHaut.getY() + 1);
+                locBas.setY(locBas.getY() + 1);
+
+                actuelBlockMaterial = e.getBlock().getWorld().getBlockAt(actualBlock).getType();
+            }
+
+
+        }*/
     }
 
 
@@ -136,5 +249,24 @@ public class Swap implements Listener{
             cooldownManager.put(p, now);
             return true;
         }
+    }
+
+    private void compasTrack(Player p){
+        p.setCompassTarget(getNearestPlayer(p).getLocation());
+    }
+
+    private Player getNearestPlayer(Player p){
+        Location pos = p.getLocation();
+        double nearestRange = 0;
+        Player nearestPlayer = p;
+
+        for (Player player: p.getWorld().getPlayers()) {
+            if((player.getLocation().distance(pos) <= nearestRange || nearestRange==0) && player.getUniqueId() != p.getUniqueId()){
+                nearestRange = player.getLocation().distance(pos);
+                nearestPlayer = player;
+            }
+        }
+
+        return nearestPlayer;
     }
 }

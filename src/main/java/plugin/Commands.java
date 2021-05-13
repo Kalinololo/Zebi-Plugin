@@ -38,10 +38,10 @@ public class Commands implements CommandExecutor{
                                     p.damage(20, player);
                                 }
                             }
-                            return true;
+                            break;
                         }
-                        player.damage(1);
                     }
+                    player.damage(2, player);
                 }
 
                 break;
