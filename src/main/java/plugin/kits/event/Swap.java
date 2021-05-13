@@ -1,26 +1,34 @@
-package plugin;
+package plugin.kits.event;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
+import plugin.HungerGames;
+import plugin.kits.Kit;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Swap implements Listener{
 
@@ -80,21 +88,6 @@ public class Swap implements Listener{
     }
 
     @EventHandler
-    public void onFall(EntityDamageEvent e){
-        if(e.getCause() == EntityDamageEvent.DamageCause.FALL  && e.getEntity() instanceof Player){
-            if(Kit.getKitAbilities(Kit.getKit((Player) e.getEntity())).contains("FREEFALL")){
-                double damage = e.getDamage();
-                e.setDamage(0);
-                for (Entity enemy : e.getEntity().getNearbyEntities(4, 4, 4)) {
-                    if(enemy instanceof LivingEntity){
-                        ((LivingEntity) enemy).damage(damage);
-                    }
-                }
-            }
-        }
-    }
-
-    @EventHandler
     public void onDisconnect(PlayerQuitEvent e){
         if(Kit.getKit(e.getPlayer()) != null){
             Kit.removeSelectedKit(e.getPlayer());
@@ -123,7 +116,7 @@ public class Swap implements Listener{
 
     @EventHandler
     public void onDrop(PlayerDropItemEvent e){
-        if(Kit.listKits().contains(e.getItemDrop().getItemStack().getItemMeta().getDisplayName())){
+        if(Kit.listKits().contains(e.getItemDrop().getItemStack().getItemMeta().getDisplayName()) || e.getItemDrop().getItemStack().getItemMeta() == getKitSelector().getItemMeta()){
             e.setCancelled(true);
         }
     }
@@ -221,7 +214,7 @@ public class Swap implements Listener{
     }
 
 
-    private ItemStack getKitSelector(){
+    public static ItemStack getKitSelector(){
         ItemStack plume = new ItemStack(Material.FEATHER, 1);
         ItemMeta ks = plume.getItemMeta();
 

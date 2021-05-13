@@ -1,12 +1,12 @@
-package plugin.commands;
+package plugin.commands.commandClass;
 
-import org.bukkit.WorldCreator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import plugin.commands.ICommands;
 
 import java.io.File;
 
-public class CommandDWorld extends Commands implements ICommands{
+public class CommandDWorld implements ICommands {
 
     @Override
     public boolean exec(CommandSender sender, Command command, String label, String[] args) {

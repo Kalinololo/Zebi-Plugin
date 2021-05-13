@@ -1,11 +1,12 @@
-package plugin.commands;
+package plugin.commands.commandClass;
 
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import plugin.commands.ICommands;
 
-public class CommandLWorld extends Commands implements ICommands{
+public class CommandLWorld implements ICommands {
 
     @Override
     public boolean exec(CommandSender sender, Command command, String label, String[] args) {

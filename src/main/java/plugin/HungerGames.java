@@ -1,7 +1,8 @@
 package plugin;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.plugin.java.JavaPlugin;
-import plugin.commands.CommandKit;
 import plugin.commands.Commands;
+import plugin.kits.event.Swap;
 
 import java.io.File;
 
@@ -29,5 +30,10 @@ public class HungerGames extends JavaPlugin {
     public void onDisable() {
         getLogger().info("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
     }
+
+
+
+
+
 
 }
