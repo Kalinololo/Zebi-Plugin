@@ -1,4 +1,4 @@
-package plugin;
+package plugin.commands;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -7,6 +7,9 @@ import org.bukkit.WorldCreator;
 import org.bukkit.command.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import plugin.HungerGames;
+import plugin.Kit;
+import plugin.Swap;
 
 import java.io.File;
 
@@ -14,20 +17,10 @@ public class Commands implements CommandExecutor{
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        switch (command.getName()) {
-            case "surfacerandom":
-                if(sender instanceof Player){
-                    int n = 10;
-                    Player p = (Player) sender;
-                    Location loc = p.getLocation();
-                    loc.setY(100);
-                    while (n != 0) {
-                        p.getPlayer().setFlySpeed(10);
-                        n--;
-                    }
-                    p.teleport(loc);
-                }
-                break;
+
+        ListeCommands.valueOf(command.getName()).getCommands().exec(sender, command, label, args);
+
+        /*switch (command.getName()) {
             case "ez":
                 if(sender instanceof Player){
                     Player player = (Player) sender;
@@ -91,6 +84,10 @@ public class Commands implements CommandExecutor{
 
         return true;
     }
+
+    @Override
+    public void exec(CommandSender sender, Command command, String label, String[] args){}
+
 
 
 

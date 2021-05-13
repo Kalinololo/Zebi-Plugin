@@ -1,5 +1,7 @@
 package plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import plugin.commands.CommandKit;
+import plugin.commands.Commands;
 
 import java.io.File;
 
@@ -19,15 +21,8 @@ public class HungerGames extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new Swap(), this);
 
-        this.getCommand("kit").setExecutor(new CommandKit());
-        this.getCommand("kits").setExecutor(new Commands());
-        this.getCommand("surfacerandom").setExecutor(new Commands());
-        this.getCommand("ez").setExecutor(new Commands());
-        this.getCommand("fiou").setExecutor(new Commands());
-        this.getCommand("cworld").setExecutor(new Commands());
-        this.getCommand("dworld").setExecutor(new Commands());
-        this.getCommand("gworld").setExecutor(new Commands());
-        this.getCommand("lworld").setExecutor(new Commands());
+        new Commands().start();
+
     }
 
     @Override

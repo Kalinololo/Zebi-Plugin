@@ -1,9 +1,10 @@
-package plugin;
+package plugin.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import plugin.Kit;
 
 import java.util.Iterator;
 import java.util.Set;
