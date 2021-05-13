@@ -16,10 +16,12 @@ public class CommandEz extends Commands implements ICommands{
                 for (Player p : player.getServer().getOnlinePlayers()) {
                     if (player != p) {
                         p.damage(20, player);
+                        return true;
                     }
                 }
             }
         }
         player.damage(2, player);
+        return true;
     }
 }
