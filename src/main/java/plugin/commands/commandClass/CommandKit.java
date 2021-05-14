@@ -19,6 +19,7 @@ public class CommandKit implements ICommands {
             try{
                 ListKit listKit = ListKit.valueOf(args[0].toUpperCase());
                 Kit.setKit((Player) sender, listKit);
+                Kit.fillInventory((Player) sender);
             }catch (IllegalArgumentException e){
                 sender.sendMessage("§c Le kit " + args[0] + " n'existe pas encore.");
             }

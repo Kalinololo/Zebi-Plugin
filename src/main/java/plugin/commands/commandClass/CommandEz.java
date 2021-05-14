@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import plugin.commands.ICommands;
 import plugin.kits.Kit;
 import plugin.kits.KitListener;
+import plugin.kits.lists.ListKit;
 import plugin.kits.lists.ListKitAbilities;
 
 import java.util.ArrayList;
@@ -22,12 +23,21 @@ public class CommandEz extends KitListener implements ICommands{
                 for (Player p : player.getServer().getOnlinePlayers()) {
                     if (player != p) {
                         p.damage(20, player);
-                        return true;
                     }
                 }
+                return true;
             }
         }
         player.damage(2, player);
         return true;
+    }
+
+    @Override
+    public boolean hasAbility(Player p) {
+        try{
+            return Arrays.asList(Kit.getKit(p).getAbilities()).contains(ListKitAbilities.SECRET);
+        }catch (NullPointerException ignored){
+            return false;
+        }
     }
 }

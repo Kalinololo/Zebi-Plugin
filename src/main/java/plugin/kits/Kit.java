@@ -23,11 +23,10 @@ public class Kit{
         if(playerSelectedKit.containsKey(p)){
             setKitAbilities(p);
             playerSelectedKit.replace(p, kit);
-            setKitAbilitiesNew(p);
         }else{
             playerSelectedKit.put(p, kit);
-            setKitAbilitiesNew(p);
         }
+        setKitAbilitiesNew(p);
     }
 
     private static void setKitAbilitiesNew(Player p){
@@ -45,13 +44,7 @@ public class Kit{
     private static final Map<Player, ListKit> playerSelectedKit = new HashMap<>();
 
     public static void fillInventory(Player player){
-        ArrayList<ListKitContent> items = getKitItem(playerSelectedKit.get(player));
-        player.getInventory().clear();
-        player.getInventory().setArmorContents(null);
-
-        for (ListKitContent item: items) {
-            player.getInventory().addItem(item.getItem());
-        }
+        getKit(player).fillInventory(player);
     }
 
     public static ArrayList<ListKit> listKits(){
@@ -72,18 +65,6 @@ public class Kit{
 
     public static ArrayList<ListKitAbilities> getKitAbilities(ListKit kit){
         return new ArrayList<>(Arrays.asList(kit.getAbilities()));
-    }
-
-    public static ArrayList<ListKitContent> getKitItem(ListKit kit){
-        return kit.getItems();
-    }
-
-    public static Material getKitImage(ListKit kit){
-        return kit.getImage();
-    }
-
-    public static String getKitDesc(ListKit kit){
-        return kit.getDescription();
     }
 
 
@@ -113,6 +94,19 @@ public class Kit{
         }
 
         return menu;
+    }
+
+    public static ItemStack getKitSelector(){
+        ItemStack plume = new ItemStack(Material.FEATHER, 1);
+        ItemMeta ks = plume.getItemMeta();
+
+        ks.setDisplayName("§9 Sélecteur de kit");
+        ks.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        ks.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+
+        plume.setItemMeta(ks);
+
+        return plume;
     }
 
 }

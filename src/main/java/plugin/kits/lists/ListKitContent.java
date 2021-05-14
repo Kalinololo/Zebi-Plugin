@@ -46,19 +46,12 @@ public enum ListKitContent {
         return name;
     }
 
-    public ArrayList<ListKitContent> getKitContent(String kit){
+    public ArrayList<ListKitContent> getKitContent(ListKit kit){
         ArrayList<ListKitContent> itemsArray = new ArrayList<>();
         for (ListKitContent item: ListKitContent.values()) {
-            ListKit actualKit;
-            try{
-                actualKit = ListKit.valueOf(kit);
-            }catch (IllegalArgumentException e){
-                continue;
-            }
-
             if(item == COMPASS){
                 itemsArray.add(item);
-            }else if(item.getKit() == actualKit){
+            }else if(item.getKit() == kit){
                 itemsArray.add(item);
             }
         }

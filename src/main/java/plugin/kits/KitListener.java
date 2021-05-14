@@ -4,7 +4,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import plugin.HungerGames;
+import plugin.kits.listeners.KitMenuListener;
 
+import java.io.File;
 import java.util.*;
 
 public class KitListener implements Listener {
