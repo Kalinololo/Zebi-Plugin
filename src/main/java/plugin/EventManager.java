@@ -4,8 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
@@ -14,7 +12,6 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -23,10 +20,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
-import plugin.HungerGames;
 import plugin.kits.Kit;
-import plugin.kits.ListKitAbilities;
-import plugin.kits.event.PlayerHitSnowballEvent;
+import plugin.kits.lists.ListKitAbilities;
 
 import java.util.*;
 
@@ -34,14 +29,12 @@ public class EventManager implements Listener{
 
     private static HashMap<Player, Date> cooldownManager = new HashMap<>();
 
-    @EventHandler
+    /*@EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof Snowball && ((Snowball) e.getDamager()).getShooter() instanceof Player) {
             Player shooter = (Player) ((Snowball) e.getDamager()).getShooter();
             Player shooted = (Player) e.getEntity();
             Snowball bouboule = (Snowball) e.getDamager();
-
-            Bukkit.getPluginManager().callEvent(new PlayerHitSnowballEvent(shooter, shooted, bouboule));
         }
 
         /*
@@ -64,8 +57,8 @@ public class EventManager implements Listener{
                 Entity k = e.getEntity();
                 k.setVelocity(e.getDamager().getVelocity());
             }
-        }*/
-    }
+        }
+    }*/
 
     @EventHandler
     public void onCelianTBourre(PlayerInteractEvent e) {
@@ -134,18 +127,6 @@ public class EventManager implements Listener{
     public void onDeath(EntityDamageEvent e){
         if(e.getEntity() instanceof Player){
             Player damaged = (Player) e.getEntity();
-
-            if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                if (new ArrayList<>(Arrays.asList(Kit.getKit(damaged).getAbilities())).contains(ListKitAbilities.valueOf("FREEFALL"))) {
-                    double damage = e.getDamage();
-                    e.setDamage(0);
-                    for (Entity enemy : e.getEntity().getNearbyEntities(4, 4, 4)) {
-                        if (enemy instanceof LivingEntity) {
-                            ((LivingEntity) enemy).damage(damage);
-                        }
-                    }
-                }
-            }
 
             if(damaged.getHealth() - e.getDamage() <= 0){
                 damaged.getWorld().strikeLightningEffect(damaged.getLocation());

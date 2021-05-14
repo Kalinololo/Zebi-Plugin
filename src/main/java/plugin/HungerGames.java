@@ -3,6 +3,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.commands.Commands;
 import plugin.kits.Kit;
+import plugin.kits.lists.ListKitAbilities;
 
 public class HungerGames extends JavaPlugin {
 
@@ -15,8 +16,9 @@ public class HungerGames extends JavaPlugin {
         plugin = this;
         kitMenu = Kit.getKitMenu();
 
-        getServer().getPluginManager().registerEvents(new EventManager(), this);
+        //getServer().getPluginManager().registerEvents(new EventManager(), this);
 
+        ListKitAbilities.loadAbilities();
         new Commands().start();
 
     }

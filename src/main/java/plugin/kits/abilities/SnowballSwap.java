@@ -1,16 +1,24 @@
 package plugin.kits.abilities;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Snowball;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import plugin.kits.event.PlayerHitSnowballEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import plugin.kits.KitListener;
 
-public class SnowballSwap implements Listener {
+public class SnowballSwap extends KitListener {
 
     @EventHandler
-    public void onSnowball(PlayerHitSnowballEvent e){
-        swap(e.getShooter(), e.getShooted());
+    public void onSnowball(EntityDamageByEntityEvent e){
+        Player shooter = (Player) ((Snowball)e.getDamager()).getShooter();
+        if(hasAbility(shooter)){
+            swap(shooter, (Player) e.getEntity());
+        }else{
+            Entity k = e.getEntity();
+            k.setVelocity(e.getDamager().getVelocity());
+        }
     }
 
 

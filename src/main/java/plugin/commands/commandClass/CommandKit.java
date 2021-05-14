@@ -5,27 +5,20 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import plugin.commands.ICommands;
 import plugin.kits.Kit;
-import plugin.kits.ListKit;
+import plugin.kits.lists.ListKit;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class CommandKit implements ICommands {
 
-
-
     @Override
     public boolean exec(CommandSender sender, Command command, String s, String[] args) {
-        ArrayList<ListKit> kits = Kit.listKits();
-
         if(args.length == 0){
             Kit.openKitMenu((Player) sender);
         }else{
             try{
-                ListKit listKit = ListKit.valueOf(args[0]);
-
-                Kit kit = new Kit(listKit, (Player) sender);
-                kit.fillInventory();
+                ListKit listKit = ListKit.valueOf(args[0].toUpperCase());
+                Kit.setKit((Player) sender, listKit);
             }catch (IllegalArgumentException e){
                 sender.sendMessage("§c Le kit " + args[0] + " n'existe pas encore.");
             }

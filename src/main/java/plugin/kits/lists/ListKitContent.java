@@ -2,6 +2,9 @@ package plugin.kits;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 
@@ -60,6 +63,17 @@ public enum ListKitContent {
             }
         }
         return itemsArray;
+    }
+
+    public static ItemStack getPotion(PotionEffect p){
+        ItemStack potion = new ItemStack(Material.POTION, 1);
+
+        PotionMeta effect = (PotionMeta) potion.getItemMeta();
+        effect.addCustomEffect(p, true);
+
+        potion.setItemMeta(effect);
+
+        return potion;
     }
 
 }

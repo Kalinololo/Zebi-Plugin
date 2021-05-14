@@ -1,9 +1,8 @@
 package plugin.kits;
 
+import com.google.common.collect.SetMultimap;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -11,31 +10,42 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import plugin.HungerGames;
+import plugin.kits.lists.ListKit;
+import plugin.kits.lists.ListKitAbilities;
+import plugin.kits.lists.ListKitContent;
 
 import java.util.*;
 
 
 public class Kit{
 
-    private ListKit kit;
-    private Player player;
-
-    private static final HashMap<Player, ListKit> playerSelectedKit = new HashMap<>();
-
-    public Kit(ListKit kit, Player p){
-        this.kit = kit;
-        this.player = p;
-
+    public static void setKit(Player p, ListKit kit){
         if(playerSelectedKit.containsKey(p)){
+            setKitAbilities(p);
             playerSelectedKit.replace(p, kit);
+            setKitAbilitiesNew(p);
         }else{
             playerSelectedKit.put(p, kit);
+            setKitAbilitiesNew(p);
         }
     }
 
+    private static void setKitAbilitiesNew(Player p){
+        for (ListKitAbilities ability:getKitAbilities(getKit(p))) {
+            ability.getAbility().addPlayer(p);
+        }
+    }
 
-    public void fillInventory(){
-        ArrayList<ListKitContent> items = this.getKitItem();
+    private static void setKitAbilities(Player p){
+        for (ListKitAbilities ability:getKitAbilities(getKit(p))) {
+            ability.getAbility().removePlayer(p);
+        }
+    }
+
+    private static final Map<Player, ListKit> playerSelectedKit = new HashMap<>();
+
+    public static void fillInventory(Player player){
+        ArrayList<ListKitContent> items = getKitItem(playerSelectedKit.get(player));
         player.getInventory().clear();
         player.getInventory().setArmorContents(null);
 
@@ -52,26 +62,30 @@ public class Kit{
         return playerSelectedKit.getOrDefault(p, null);
     }
 
-
-    public ArrayList<ListKitAbilities> getKitAbilities(){
-        return new ArrayList<>(Arrays.asList(kit.getAbilities()));
-    }
-
-    public ArrayList<ListKitContent> getKitItem(){
-        return kit.getItems();
-    }
-
-    public Material getKitImage(){
-        return kit.getImage();
-    }
-
-    public String getKitDesc(){
-        return kit.getDescription();
-    }
-
     public static void removeSelectedKit(Player p){
         playerSelectedKit.remove(p);
     }
+
+    public static void openKitMenu(Player p){
+        p.openInventory(HungerGames.kitMenu);
+    }
+
+    public static ArrayList<ListKitAbilities> getKitAbilities(ListKit kit){
+        return new ArrayList<>(Arrays.asList(kit.getAbilities()));
+    }
+
+    public static ArrayList<ListKitContent> getKitItem(ListKit kit){
+        return kit.getItems();
+    }
+
+    public static Material getKitImage(ListKit kit){
+        return kit.getImage();
+    }
+
+    public static String getKitDesc(ListKit kit){
+        return kit.getDescription();
+    }
+
 
     public static Inventory getKitMenu(){
         ArrayList<ListKit> kits = Kit.listKits();
@@ -99,10 +113,6 @@ public class Kit{
         }
 
         return menu;
-    }
-
-    public static void openKitMenu(Player p){
-        p.openInventory(HungerGames.kitMenu);
     }
 
 }
