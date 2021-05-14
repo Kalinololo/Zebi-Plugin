@@ -6,13 +6,17 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import plugin.commands.ICommands;
 import plugin.kits.Kit;
+import plugin.kits.ListKitAbilities;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CommandEz implements ICommands {
 
     @Override
     public boolean exec(CommandSender sender, Command command, String label, String[] args) {
         Player player = (Player) sender;
-        if (Kit.getKitAbilities(Kit.getKit(player)).contains("SEECRET") && player.getInventory().getBoots() != null) {
+        if (new ArrayList<>(Arrays.asList(Kit.getKit(player).getAbilities())).contains(ListKitAbilities.valueOf("SEECRET")) && player.getInventory().getBoots() != null) {
             if (player.getInventory().getBoots().getType() == Material.CHAINMAIL_BOOTS) {
                 for (Player p : player.getServer().getOnlinePlayers()) {
                     if (player != p) {

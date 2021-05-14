@@ -43,16 +43,23 @@ public enum ListKitContent {
         return name;
     }
 
-    public ListKitContent[] getKitContent(String kit){
+    public ArrayList<ListKitContent> getKitContent(String kit){
         ArrayList<ListKitContent> itemsArray = new ArrayList<>();
         for (ListKitContent item: ListKitContent.values()) {
-            if(item.name().equals("COMPASS")){
+            ListKit actualKit;
+            try{
+                actualKit = ListKit.valueOf(kit);
+            }catch (IllegalArgumentException e){
+                continue;
+            }
+
+            if(item == COMPASS){
                 itemsArray.add(item);
-            }else if(item.getKit().getName().equals(kit)){
+            }else if(item.getKit() == actualKit){
                 itemsArray.add(item);
             }
         }
-        return (ListKitContent[]) itemsArray.toArray();
+        return itemsArray;
     }
 
 }

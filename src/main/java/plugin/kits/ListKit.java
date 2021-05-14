@@ -1,5 +1,9 @@
 package plugin.kits;
 
+import org.bukkit.Material;
+
+import java.util.ArrayList;
+
 public enum ListKit {
 
 
@@ -9,21 +13,23 @@ public enum ListKit {
 
 
     private String name, description;
-    private ListKitContent[] items;
+    private ArrayList<ListKitContent> items;
     private ListKitAbilities[] abilities;
+    private Material image;
 
-    ListKit(String name, String description, ListKitContent[] items, ListKitAbilities[] abilities){
+    ListKit(String name, String description, ArrayList<ListKitContent> items, ListKitAbilities[] abilities, Material image){
         this.name = name;
         this.description = description;
         this.abilities = abilities;
         this.items = items;
+        this.image = image;
     }
 
     public ListKitAbilities[] getAbilities() {
         return abilities;
     }
 
-    public ListKitContent[] getItems() {
+    public ArrayList<ListKitContent> getItems() {
         return items;
     }
 
@@ -35,4 +41,7 @@ public enum ListKit {
         return description;
     }
 
+    public Material getImage() {
+        return image;
+    }
 }

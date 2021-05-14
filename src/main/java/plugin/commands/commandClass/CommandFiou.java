@@ -7,12 +7,16 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import plugin.commands.ICommands;
 import plugin.kits.Kit;
+import plugin.kits.ListKitAbilities;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CommandFiou implements ICommands {
 
     @Override
     public boolean exec(CommandSender sender, Command command, String label, String[] args) {
-        if (Kit.getKitAbilities(Kit.getKit((Player) sender)).contains("FIOU")) {
+        if (new ArrayList<>(Arrays.asList(Kit.getKit((Player) sender).getAbilities())).contains(ListKitAbilities.valueOf("FIOU"))) {
             if (args.length != 0) {
                 Location pos = ((Player) sender).getLocation();
 

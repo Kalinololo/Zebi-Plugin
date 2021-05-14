@@ -1,4 +1,4 @@
-package plugin.kits.event;
+package plugin;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -25,17 +25,26 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 import plugin.HungerGames;
 import plugin.kits.Kit;
+import plugin.kits.ListKitAbilities;
+import plugin.kits.event.PlayerHitSnowballEvent;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
-public class Swap implements Listener{
+public class EventManager implements Listener{
 
     private static HashMap<Player, Date> cooldownManager = new HashMap<>();
 
     @EventHandler
-    public void onDuel(EntityDamageByEntityEvent e) {
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
+        if (e.getDamager() instanceof Snowball && ((Snowball) e.getDamager()).getShooter() instanceof Player) {
+            Player shooter = (Player) ((Snowball) e.getDamager()).getShooter();
+            Player shooted = (Player) e.getEntity();
+            Snowball bouboule = (Snowball) e.getDamager();
+
+            Bukkit.getPluginManager().callEvent(new PlayerHitSnowballEvent(shooter, shooted, bouboule));
+        }
+
+        /*
         if (e.getDamager() instanceof Snowball) {
             Snowball bouboule = (Snowball) e.getDamager();
             if (bouboule.getShooter() instanceof Player) {
@@ -55,11 +64,11 @@ public class Swap implements Listener{
                 Entity k = e.getEntity();
                 k.setVelocity(e.getDamager().getVelocity());
             }
-        }
+        }*/
     }
 
     @EventHandler
-    public void onCelianTBourre(PlayerInteractEvent e) throws InterruptedException {
+    public void onCelianTBourre(PlayerInteractEvent e) {
         if(e.getItem() != null && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)){
             if(e.getItem().getType() == Material.GOLD_SWORD){
                 Player player = e.getPlayer();
@@ -69,7 +78,7 @@ public class Swap implements Listener{
                 pos.setY(pos.getY()+1);
                 Entity bouboule = player.getWorld().spawnEntity(pos, EntityType.SNOWBALL);
                 bouboule.setVelocity(new Vector(player.getEyeLocation().getDirection().getX()*1.1, player.getEyeLocation().getDirection().getY()*1.1, player.getEyeLocation().getDirection().getZ()*1.1));
-            }else if(e.getItem().getType() == Material.RED_MUSHROOM && Kit.getKitAbilities(Kit.getKit(e.getPlayer())).contains("JUMPER")){
+            }else if(e.getItem().getType() == Material.RED_MUSHROOM && new ArrayList<>(Arrays.asList(Kit.getKit(e.getPlayer()).getAbilities())).contains(ListKitAbilities.valueOf("JUMPER"))){
                 if(isCooldowned(e.getPlayer(), 800)){
                     Vector dir = e.getPlayer().getEyeLocation().getDirection();
                     e.getPlayer().setVelocity(new Vector(dir.getX()*0.4, 1, dir.getZ()*0.4));
@@ -127,7 +136,7 @@ public class Swap implements Listener{
             Player damaged = (Player) e.getEntity();
 
             if (e.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                if (Kit.getKitAbilities(Kit.getKit(damaged)).contains("FREEFALL")) {
+                if (new ArrayList<>(Arrays.asList(Kit.getKit(damaged).getAbilities())).contains(ListKitAbilities.valueOf("FREEFALL"))) {
                     double damage = e.getDamage();
                     e.setDamage(0);
                     for (Entity enemy : e.getEntity().getNearbyEntities(4, 4, 4)) {
@@ -144,7 +153,7 @@ public class Swap implements Listener{
                 e.setCancelled(true);
 
 
-                if(Kit.getKitAbilities(Kit.getKit(damaged.getKiller())).contains("VAMPIRE")){
+                if(new ArrayList<>(Arrays.asList(Kit.getKit((Player) e.getEntity()).getAbilities())).contains(ListKitAbilities.valueOf("VAMPIRE"))){
                     Player killer = damaged.getKiller();
                     killer.setHealth(killer.getHealth()+9);
                 }

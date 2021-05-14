@@ -12,22 +12,17 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import plugin.HungerGames;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class Kit{
 
-    private String kit;
+    private ListKit kit;
     private Player player;
 
-    private static HashMap<Player, String> playerSelectedKit = new HashMap<>();
+    private static final HashMap<Player, ListKit> playerSelectedKit = new HashMap<>();
 
-    private static final FileConfiguration config = YamlConfiguration.loadConfiguration(HungerGames.kitFile);
-
-    public Kit(String kit, Player p){
+    public Kit(ListKit kit, Player p){
         this.kit = kit;
         this.player = p;
 
@@ -40,40 +35,38 @@ public class Kit{
 
 
     public void fillInventory(){
-        List<String> items = config.getStringList(kit + ".items");
+        ArrayList<ListKitContent> items = this.getKitItem();
         player.getInventory().clear();
         player.getInventory().setArmorContents(null);
 
-        for (String s: items) {
-            String[] div = s.split(" ");
-            ItemStack item = new ItemStack(Material.getMaterial(div[0]), Integer.parseInt(div[1]));
-            player.getInventory().addItem(item);
+        for (ListKitContent item: items) {
+            player.getInventory().addItem(item.getItem());
         }
-
     }
 
-    public static Set<String> listKits(){
-        return config.getKeys(false);
+    public static ArrayList<ListKit> listKits(){
+        return new ArrayList<>(Arrays.asList(ListKit.values()));
     }
 
-    public static String getKit(Player p){
+    public static ListKit getKit(Player p){
         return playerSelectedKit.getOrDefault(p, null);
     }
 
-    public static List<String> getKitAbilities(String kit){
-        return config.getStringList(kit + ".ability");
+
+    public ArrayList<ListKitAbilities> getKitAbilities(){
+        return new ArrayList<>(Arrays.asList(kit.getAbilities()));
     }
 
-    public static List<String> getKitItem(String kit){
-        return config.getStringList(kit + ".items");
+    public ArrayList<ListKitContent> getKitItem(){
+        return kit.getItems();
     }
 
-    public static String getKitImage(String kit){
-        return config.getString(kit + ".showItem");
+    public Material getKitImage(){
+        return kit.getImage();
     }
 
-    public static String getKitDesc(String kit){
-        return config.getString(kit + ".description");
+    public String getKitDesc(){
+        return kit.getDescription();
     }
 
     public static void removeSelectedKit(Player p){
@@ -81,21 +74,21 @@ public class Kit{
     }
 
     public static Inventory getKitMenu(){
-        Set<String> kits = Kit.listKits();
+        ArrayList<ListKit> kits = Kit.listKits();
         Inventory menu = Bukkit.createInventory(null, 54, "Sélectionne ton kit !");
 
-        for (String kit : kits) {
-            ItemStack item = new ItemStack(Material.getMaterial(getKitImage(kit)), 1);
+        for (ListKit kit : kits) {
+            ItemStack item = new ItemStack(kit.getImage(), 1);
             ItemMeta meta = item.getItemMeta();
-            List<String> itemDesc = new ArrayList<>();
+            ArrayList<String> itemDesc = new ArrayList<>();
 
-            itemDesc.add(getKitDesc(kit));
+            itemDesc.add(kit.getDescription());
 
-            for (String itemName : getKitItem(kit)) {
-                itemDesc.add(" - " + itemName.split(" ")[0]);
+            for (ListKitContent kitItem : kit.getItems()) {
+                itemDesc.add(" - " + kitItem.getName());
             }
 
-            meta.setDisplayName(kit);
+            meta.setDisplayName(kit.getName());
             meta.setLore(itemDesc);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             meta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
@@ -106,6 +99,10 @@ public class Kit{
         }
 
         return menu;
+    }
+
+    public static void openKitMenu(Player p){
+        p.openInventory(HungerGames.kitMenu);
     }
 
 }

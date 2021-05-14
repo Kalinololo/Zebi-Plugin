@@ -1,6 +1,7 @@
 package plugin.kits;
 
-import plugin.kits.event.Swap;
+import plugin.kits.abilities.FireMan;
+import plugin.EventManager;
 
 import java.util.ArrayList;
 
@@ -10,18 +11,8 @@ public enum ListKitAbilities {
 
 
     private String name;
-    private Swap ability;
 
-    ListKitAbilities(String name, Swap ability){
+    ListKitAbilities(String name){
         this.name = name;
-        this.ability = ability;
-    }
-
-    static ListKitAbilities[] getKitAbilities(){
-        ArrayList<ListKitAbilities> abilitiesArray = new ArrayList<>();
-        for (ListKitAbilities item: ListKitAbilities.values()) {
-                abilitiesArray.add(item);
-        }
-        return (ListKitAbilities[]) abilitiesArray.toArray();
     }
 }

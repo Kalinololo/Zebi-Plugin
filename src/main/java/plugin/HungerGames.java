@@ -1,26 +1,21 @@
 package plugin;
-import org.bukkit.attribute.Attribute;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.commands.Commands;
-import plugin.kits.event.Swap;
-
-import java.io.File;
+import plugin.kits.Kit;
 
 public class HungerGames extends JavaPlugin {
 
     public static JavaPlugin plugin;
 
-    public static File kitFile;
+    public static Inventory kitMenu;
 
     @Override
     public void onEnable() {
-        kitFile = new File(getDataFolder(), "kits.yml");
-        //if(!kitFile.exists()){
-            saveResource("kits.yml", true);
-        //}
         plugin = this;
+        kitMenu = Kit.getKitMenu();
 
-        getServer().getPluginManager().registerEvents(new Swap(), this);
+        getServer().getPluginManager().registerEvents(new EventManager(), this);
 
         new Commands().start();
 
