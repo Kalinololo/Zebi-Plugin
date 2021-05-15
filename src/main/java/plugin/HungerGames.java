@@ -38,7 +38,7 @@ public class HungerGames extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        getLogger().info("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        party.end();
     }
 
     private void loadListeners(){

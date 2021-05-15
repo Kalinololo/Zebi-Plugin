@@ -45,17 +45,10 @@ public class CustomDeathListener implements Listener {
             e.getVictim().getServer().broadcastMessage(e.getVictim().getName() + " s'est fait bouillave sa grande tante par " + e.getKiller().getName());
         }
 
-        HungerGames.party.getPlayers().remove(e.getVictim());
+        HungerGames.party.removePlayer(e.getVictim());
 
         if(HungerGames.party.getPlayers().size() == 1) {
             HungerGames.party.end();
-        }
-    }
-
-    @EventHandler
-    public void onDisconnect(PlayerQuitEvent e){
-        if(Kit.getKit(e.getPlayer()) != null){
-            Kit.removeSelectedKit(e.getPlayer());
         }
     }
 }

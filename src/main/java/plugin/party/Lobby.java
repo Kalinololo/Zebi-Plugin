@@ -17,26 +17,40 @@ public class Lobby implements Runnable {
 
     private Timer time;
 
+    private boolean isStarted;
+
     public Lobby(){
         players = new HashSet<>();
         timer = -60;
+        isStarted = false;
     }
 
 
     @Override
     public void run() {
-        /*
         time.schedule(new TimerTask() {
             @Override
             public void run() {
                 timer++;
-                HungerGames.plugin.getServer().broadcastMessage(String.valueOf(timer));
+                if(isStarted){
+
+                }else if(canStar()){
+                    isStarted = true;
+                }else if(timer < 0){
+                    if(timer%15 == 0){
+                        HungerGames.plugin.getServer().broadcastMessage("La partie commence dans " + -timer + " secondes.");
+                    }
+                }else{
+                    HungerGames.plugin.getServer().broadcastMessage("Pas assez de joueur pour commencer la partie.");
+                    timer = -60;
+                }
             }
-        }, 1000, 1000);*/
+        }, 1000, 1000);
     }
 
     public void end(){
-
+        HungerGames.plugin.getServer().broadcastMessage(players.iterator().next().getName() + " a gagné la partie ce bg !");
+        time.cancel();
     }
 
 
@@ -44,7 +58,29 @@ public class Lobby implements Runnable {
         return players;
     }
 
-    public boolean isStarted(){
-        return timer >= 0;
+    public void addPlayer(Player p){
+        players.add(p);
+    }
+
+    public void removePlayer(Player p){
+        players.remove(p);
+    }
+
+    public boolean setStarted(boolean started) {
+        if(isStarted){
+            return false;
+        }else{
+            isStarted = started;
+            timer = 0;
+            return true;
+        }
+    }
+
+    public boolean canStar(){
+        return players.size() >= 2 && timer == 0;
+    }
+
+    public boolean isStarted() {
+        return isStarted;
     }
 }

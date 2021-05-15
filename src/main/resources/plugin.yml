@@ -36,3 +36,27 @@ commands:
   lworld:
     description: List worlds
     usage: /lworld
+
+  c:
+    description: Set gamemode CREATIVE
+    usage: /c
+
+  s:
+    description: Set gamemode SURVIVAL
+    usage: /s
+
+  sp:
+    description: Set gamemode SPECTATOR
+    usage: /sp
+
+  kits:
+    description: Give a Kit Selector
+    usage: /kits
+
+  fly:
+    description: Enable/Disable fly
+    usage: /fly
+
+  hg:
+    description: Interact with the actual party
+    usage: /hg <action>
