@@ -18,20 +18,24 @@ public class CustomDeathListener implements Listener {
     @EventHandler
     public void onDamage(EntityDamageEvent e){
         if(e.getEntity() instanceof Player){
-            Player victim = (Player) e.getEntity();
-
-            if(victim.getHealth() - e.getDamage() <= 0) {
+            if(!HungerGames.party.isStarted()){
                 e.setCancelled(true);
-                try{
-                    EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent) e;
-                    HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(victim, (Player) damageEvent.getDamager(), e.getDamage()));
-                } catch (ClassCastException exception) {
-                    HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(victim, victim, e.getDamage()));
+            }else if(!HungerGames.party.isPvpActive() && e.getCause() == EntityDamageEvent.DamageCause.FALL){
+                e.setCancelled(true);
+            }else {
+                Player victim = (Player) e.getEntity();
+
+                if (victim.getHealth() - e.getDamage() <= 0) {
+                    e.setCancelled(true);
+                    try {
+                        EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent) e;
+                        HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(victim, (Player) damageEvent.getDamager(), e.getDamage()));
+                    } catch (ClassCastException exception) {
+                        HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(victim, victim, e.getDamage()));
+                    }
                 }
             }
-
         }
-
     }
 
 
@@ -39,6 +43,8 @@ public class CustomDeathListener implements Listener {
     public void onDeath(PlayerCustomDeathEvent e){
         e.getVictim().getWorld().strikeLightningEffect(e.getVictim().getLocation());
         e.getVictim().setGameMode(GameMode.SPECTATOR);
+        e.getVictim().getInventory().clear();
+
         if(e.getKiller() == e.getVictim()){
             e.getVictim().getServer().broadcastMessage(e.getVictim().getName() + " s'est lui même bouillave sa grande tante ce bot.");
         }else{

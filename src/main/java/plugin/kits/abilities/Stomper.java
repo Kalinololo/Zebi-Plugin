@@ -19,7 +19,7 @@ public class Stomper extends KitListener {
                     e.setDamage(0);
                     for (Entity enemy : e.getEntity().getNearbyEntities(4, 4, 4)) {
                         if (enemy instanceof LivingEntity) {
-                            ((LivingEntity) enemy).damage(damage);
+                            ((LivingEntity) enemy).damage(damage, e.getEntity());
                         }
                     }
                 }

@@ -1,9 +1,11 @@
 package plugin.party.listeners;
 
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import plugin.HungerGames;
@@ -24,12 +26,21 @@ public class LobbyListener implements Listener{
             p.getInventory().clear();
             p.getInventory().setArmorContents(null);
             p.getInventory().addItem(getKitSelector());
+            p.setGameMode(GameMode.ADVENTURE);
+            p.setAllowFlight(true);
+            p.setHealth(p.getMaxHealth());
+            p.setFoodLevel(20);
+
+            Location pos = HungerGames.plugin.getServer().getWorld("useless").getSpawnLocation();
+
+            pos.setY(pos.getY() + 100);
+
+            p.teleport(pos);
 
             party.addPlayer(e.getPlayer());
         }else{
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
         }
-
     }
 
     @EventHandler

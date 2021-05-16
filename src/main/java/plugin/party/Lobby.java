@@ -1,13 +1,18 @@
 package plugin.party;
 
-import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
+import org.bukkit.command.defaults.GameRuleCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.event.world.ChunkEvent;
 import plugin.HungerGames;
+import plugin.kits.Kit;
+import plugin.kits.lists.ListKit;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.io.File;
+import java.util.*;
 
 public class Lobby implements Runnable {
 
@@ -19,6 +24,8 @@ public class Lobby implements Runnable {
 
     private boolean isStarted;
 
+    private boolean pvpActive;
+
     public Lobby(){
         players = new HashSet<>();
         timer = -60;
@@ -28,14 +35,21 @@ public class Lobby implements Runnable {
 
     @Override
     public void run() {
+        time = new Timer();
+
+        HungerGames.plugin.getServer().getWorld("useless").setPVP(false);
+
         time.schedule(new TimerTask() {
             @Override
             public void run() {
                 timer++;
                 if(isStarted){
-
+                    if(!pvpActive){
+                        startPVP();
+                    }
                 }else if(canStar()){
                     isStarted = true;
+                    startGame();
                 }else if(timer < 0){
                     if(timer%15 == 0){
                         HungerGames.plugin.getServer().broadcastMessage("La partie commence dans " + -timer + " secondes.");
@@ -49,10 +63,26 @@ public class Lobby implements Runnable {
     }
 
     public void end(){
-        HungerGames.plugin.getServer().broadcastMessage(players.iterator().next().getName() + " a gagné la partie ce bg !");
-        time.cancel();
-    }
+        HungerGames.plugin.getServer().broadcastMessage("§6" + players.iterator().next().getName() + " a gagné la partie ce bg !");
 
+        stopTimer();
+
+        time = new Timer();
+        timer = 0;
+
+        time.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                timer ++;
+                if(timer == 10){
+                    HungerGames.plugin.getServer().reload();
+                }
+
+                HungerGames.plugin.getServer().broadcastMessage("Le serveur va être redémarrer dans " + (10-timer) + " secondes !");
+            }
+        }, 1000, 1000);
+
+    }
 
     public Set<Player> getPlayers() {
         return players;
@@ -66,12 +96,27 @@ public class Lobby implements Runnable {
         players.remove(p);
     }
 
+    public boolean isPvpActive() {
+        return pvpActive;
+    }
+
+    public void startPVP(){
+        if(timer == 60){
+            HungerGames.plugin.getServer().getWorld("useless").setPVP(true);
+            HungerGames.plugin.getServer().broadcastMessage("§6Que le meilleur gagne !");
+            pvpActive = true;
+        }else if(timer%15 == 0){
+            HungerGames.plugin.getServer().broadcastMessage("§6Il reste " + (60-timer) + " secondes avant que le PVP s'active.");
+        }
+    }
+
     public boolean setStarted(boolean started) {
         if(isStarted){
             return false;
         }else{
             isStarted = started;
             timer = 0;
+            startGame();
             return true;
         }
     }
@@ -82,5 +127,26 @@ public class Lobby implements Runnable {
 
     public boolean isStarted() {
         return isStarted;
+    }
+
+    public void startGame(){
+        for (Player p:players) {
+            Location loc = p.getWorld().getSpawnLocation();
+            loc.setY(loc.getY() + 100);
+
+            p.teleport(loc);
+            p.setGameMode(GameMode.SURVIVAL);
+            p.setAllowFlight(false);
+            if(Kit.getKit(p) == null){
+                Kit.setKit(p, ListKit.values()[(int) (Math.random() * (ListKit.values().length - 1))]);
+            }
+            Kit.fillInventory(p);
+        }
+    }
+
+    public void stopTimer(){
+        time.cancel();
+        time.purge();
+        time = null;
     }
 }
