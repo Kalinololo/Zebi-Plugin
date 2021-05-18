@@ -16,7 +16,7 @@ import plugin.party.listeners.TrackingListener;
 
 import java.io.File;
 
-public class HungerGames extends JavaPlugin {
+public abstract class HungerGames extends JavaPlugin {
 
     public static JavaPlugin plugin;
 
@@ -26,13 +26,12 @@ public class HungerGames extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        Bukkit.getScheduler().cancelAllTasks();
 
         plugin = this;
         kitMenu = Kit.getKitMenu();
-        party = new Lobby();
+        party = new Lobby(this);
 
-        plugin.getServer().createWorld(new WorldCreator("useless"));
+        this.getServer().createWorld(new WorldCreator("useless"));
 
 
         ListKitAbilities.loadAbilities();
@@ -41,22 +40,18 @@ public class HungerGames extends JavaPlugin {
 
         new Commands().start();
 
-        HungerGames.plugin.getServer().setWhitelist(false);
-
     }
 
     @Override
     public void onDisable() {
-        restart();
-
-        party.stopTimer();
+        Bukkit.getScheduler().cancelAllTasks();
     }
 
     private void loadListeners(){
-        plugin.getServer().getPluginManager().registerEvents(new KitMenuListener(), plugin);
-        plugin.getServer().getPluginManager().registerEvents(new CustomDeathListener(), plugin);
-        plugin.getServer().getPluginManager().registerEvents(new LobbyListener(), plugin);
-        plugin.getServer().getPluginManager().registerEvents(new TrackingListener(), plugin);
+        this.getServer().getPluginManager().registerEvents(new KitMenuListener(), this);
+        this.getServer().getPluginManager().registerEvents(new CustomDeathListener(), this);
+        this.getServer().getPluginManager().registerEvents(new LobbyListener(), this);
+        this.getServer().getPluginManager().registerEvents(new TrackingListener(), this);
     }
 
     private void deleteFile(File file){
@@ -72,17 +67,22 @@ public class HungerGames extends JavaPlugin {
 
     private void changeWorld(){
 
-        File world = new File(plugin.getServer().getWorldContainer().getPath() + "/" + "useless");
+        File world = new File(this.getServer().getWorldContainer().getPath() + "/" + "useless");
 
-        plugin.getServer().unloadWorld("useless", false);
+        this.getServer().unloadWorld("useless", false);
 
         deleteFile(world);
     }
+
     public void restart(){
-        for (Player p: plugin.getServer().getOnlinePlayers()) {
+        for (Player p: this.getServer().getOnlinePlayers()) {
             p.kickPlayer("§3Le serveur est en cours de redémarrage pour la prochaine partie !");
         }
-        plugin.getServer().setWhitelist(true);
+        this.getServer().setWhitelist(true);
+    }
+
+    public void stopServer(){
+        restart();
         changeWorld();
     }
 

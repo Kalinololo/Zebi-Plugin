@@ -5,7 +5,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import plugin.HungerGames;
@@ -17,7 +16,7 @@ import static plugin.kits.Kit.getKitSelector;
 
 public class LobbyListener implements Listener{
 
-    private Lobby party = HungerGames.party;
+    private final Lobby party = HungerGames.party;
 
     @EventHandler
     public void onConnect(PlayerJoinEvent e){

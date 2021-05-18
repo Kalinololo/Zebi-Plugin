@@ -8,7 +8,12 @@ import plugin.kits.KitListener;
 
 public enum ListKitAbilities {
 
-    SWAP("SWAP", new Swap());
+    SWAP("SWAP", new Swapper()),
+    FIREMAN("FIREMAN", new Fireman()),
+    JUMPER("JUMPER", new Jumper()),
+    FREEFALL("FREEFALL", new Stomper()),
+    VAMPIRE("VAMPIRE", new Vampire()),
+    SECRET("SECRET", new CommandEz());
 
 
     private String name;

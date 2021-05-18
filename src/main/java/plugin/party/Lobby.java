@@ -2,23 +2,18 @@ package plugin.party;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
-import org.bukkit.command.defaults.GameRuleCommand;
 import org.bukkit.entity.Player;
-import org.bukkit.event.world.ChunkEvent;
 import plugin.HungerGames;
 import plugin.kits.Kit;
 import plugin.kits.lists.ListKit;
 
-import java.io.File;
 import java.util.*;
 
 public class Lobby implements Runnable {
 
     private int timer;
 
-    private Set<Player> players;
+    private final Set<Player> players;
 
     private Timer time;
 
@@ -26,10 +21,13 @@ public class Lobby implements Runnable {
 
     private boolean pvpActive;
 
-    public Lobby(){
+    private HungerGames plugin;
+
+    public Lobby(HungerGames plugin){
         players = new HashSet<>();
         timer = -60;
         isStarted = false;
+        this.plugin = plugin;
     }
 
 
@@ -37,7 +35,7 @@ public class Lobby implements Runnable {
     public void run() {
         time = new Timer();
 
-        HungerGames.plugin.getServer().getWorld("useless").setPVP(false);
+        plugin.getServer().getWorld("useless").setPVP(false);
 
         time.schedule(new TimerTask() {
             @Override
@@ -63,7 +61,7 @@ public class Lobby implements Runnable {
     }
 
     public void end(){
-        HungerGames.plugin.getServer().broadcastMessage("§6" + players.iterator().next().getName() + " a gagné la partie ce bg !");
+        plugin.getServer().broadcastMessage("§6" + players.iterator().next().getName() + " a gagné la partie ce bg !");
 
         stopTimer();
 
@@ -75,10 +73,10 @@ public class Lobby implements Runnable {
             public void run() {
                 timer ++;
                 if(timer == 10){
-                    HungerGames.plugin.getServer().reload();
+                    stop();
                 }
 
-                HungerGames.plugin.getServer().broadcastMessage("Le serveur va être redémarrer dans " + (10-timer) + " secondes !");
+                plugin.getServer().broadcastMessage("Le serveur va être redémarrer dans " + (10-timer) + " secondes !");
             }
         }, 1000, 1000);
 
@@ -102,11 +100,11 @@ public class Lobby implements Runnable {
 
     public void startPVP(){
         if(timer == 60){
-            HungerGames.plugin.getServer().getWorld("useless").setPVP(true);
-            HungerGames.plugin.getServer().broadcastMessage("§6Que le meilleur gagne !");
+            plugin.getServer().getWorld("useless").setPVP(true);
+            plugin.getServer().broadcastMessage("§6Que le meilleur gagne !");
             pvpActive = true;
         }else if(timer%15 == 0){
-            HungerGames.plugin.getServer().broadcastMessage("§6Il reste " + (60-timer) + " secondes avant que le PVP s'active.");
+            plugin.getServer().broadcastMessage("§6Il reste " + (60-timer) + " secondes avant que le PVP s'active.");
         }
     }
 
@@ -148,5 +146,11 @@ public class Lobby implements Runnable {
         time.cancel();
         time.purge();
         time = null;
+    }
+
+    public void stop(){
+        stopTimer();
+        plugin.stopServer();
+        plugin.getServer().reload();
     }
 }

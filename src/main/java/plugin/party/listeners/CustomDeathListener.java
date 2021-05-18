@@ -1,16 +1,12 @@
 package plugin.party.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventException;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import plugin.HungerGames;
-import plugin.kits.Kit;
 import plugin.party.events.PlayerCustomDeathEvent;
 
 public class CustomDeathListener implements Listener {
