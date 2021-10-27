@@ -1,6 +1,7 @@
 package plugin.party.listeners;
 
 import org.bukkit.GameMode;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,22 +14,18 @@ public class CustomDeathListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent e){
-        if(e.getEntity() instanceof Player){
-            if(!HungerGames.party.isStarted()){
-                e.setCancelled(true);
-            }else if(!HungerGames.party.isPvpActive() && e.getCause() == EntityDamageEvent.DamageCause.FALL){
-                e.setCancelled(true);
-            }else {
-                Player victim = (Player) e.getEntity();
+        if(!HungerGames.party.isStarted() || !HungerGames.party.isPvpActive()){
+            e.setCancelled(true);
+        }else if (e.getEntity().getType() == EntityType.PLAYER){
+            Player victim = (Player) e.getEntity();
 
-                if (victim.getHealth() - e.getDamage() <= 0) {
-                    e.setCancelled(true);
-                    try {
-                        EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent) e;
-                        HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(victim, (Player) damageEvent.getDamager(), e.getDamage()));
-                    } catch (ClassCastException exception) {
-                        HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(victim, victim, e.getDamage()));
-                    }
+            if (victim.getHealth() - e.getDamage() <= 0) {
+                e.setCancelled(true);
+                try {
+                    EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent) e;
+                    HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(victim, (Player) damageEvent.getDamager(), e.getDamage()));
+                } catch (ClassCastException exception) {
+                    HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(victim, victim, e.getDamage()));
                 }
             }
         }

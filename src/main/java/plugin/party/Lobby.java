@@ -28,15 +28,12 @@ public class Lobby implements Runnable {
         timer = -61;
         isStarted = false;
         this.plugin = plugin;
-        HungerGames.isEnded = false;
     }
 
 
     @Override
     public void run() {
         time = new Timer();
-
-        //plugin.getServer().getWorld("useless").setPVP(false);
 
         time.schedule(new TimerTask() {
             @Override
@@ -46,7 +43,7 @@ public class Lobby implements Runnable {
                     if(!pvpActive){
                         startPVP();
                     }
-                }else if(canStar()){
+                }else if(canStart()){
                     isStarted = true;
                     startGame();
                 }else if(timer < 0){
@@ -74,7 +71,7 @@ public class Lobby implements Runnable {
         time.schedule(new TimerTask() {
             @Override
             public void run() {
-                timer ++;
+                timer++;
                 if(timer == 10){
                     stop();
                 }
@@ -103,7 +100,6 @@ public class Lobby implements Runnable {
 
     public void startPVP(){
         if(timer == 60){
-            plugin.getServer().getWorld("useless").setPVP(true);
             plugin.getServer().broadcastMessage("§6Que le meilleur gagne !");
             pvpActive = true;
         }else if(timer%15 == 0){
@@ -116,13 +112,12 @@ public class Lobby implements Runnable {
             return false;
         }else{
             isStarted = started;
-            timer = 0;
             startGame();
             return true;
         }
     }
 
-    public boolean canStar(){
+    public boolean canStart(){
         return players.size() >= 2 && timer == 0;
     }
 
@@ -136,6 +131,7 @@ public class Lobby implements Runnable {
             loc.setY(loc.getY() + 100);
 
             p.teleport(loc);
+            p.setSaturation(5);
             p.setGameMode(GameMode.SURVIVAL);
             p.setAllowFlight(false);
             if(Kit.getKit(p) == null){
@@ -148,6 +144,7 @@ public class Lobby implements Runnable {
     public void stopTimer(){
         time.cancel();
         time.purge();
+        //plugin.getServer().getScheduler().cancelAllTasks();
         time = null;
     }
 

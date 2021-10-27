@@ -28,16 +28,12 @@ public class HungerGames extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        changeWorld();
+        isEnded = true;
         plugin = this;
         kitMenu = Kit.getKitMenu();
         party = new Lobby(this);
-        System.out.println("COucoui");
-
         ListKitAbilities.loadAbilities();
-
-        loadListeners();
-
         new Commands().start();
 
     }
@@ -66,21 +62,21 @@ public class HungerGames extends JavaPlugin {
     }
 
     private void changeWorld(){
-
         File world = new File(this.getServer().getWorldContainer().getPath() + "/" + "useless");
-
-        this.getServer().unloadWorld("useless", false);
-
-        deleteFile(world);
-
-        this.getServer().createWorld(new WorldCreator("useless"));
+        if (world.exists())
+        {
+            this.getServer().unloadWorld("useless", false);
+            deleteFile(world);
+        }
+        else {
+            this.getServer().createWorld(new WorldCreator("useless"));
+        }
     }
 
     public void restart(){
         for (Player p: this.getServer().getOnlinePlayers()) {
             p.kickPlayer("§3Le serveur est en cours de redémarrage pour la prochaine partie !");
         }
-        this.getServer().setWhitelist(true);
     }
 
     public void stopServer(){
