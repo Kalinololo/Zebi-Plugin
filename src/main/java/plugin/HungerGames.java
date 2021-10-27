@@ -16,7 +16,7 @@ import plugin.party.listeners.TrackingListener;
 
 import java.io.File;
 
-public abstract class HungerGames extends JavaPlugin {
+public class HungerGames extends JavaPlugin {
 
     public static JavaPlugin plugin;
 
@@ -24,15 +24,15 @@ public abstract class HungerGames extends JavaPlugin {
 
     public static Lobby party;
 
+    public static boolean isEnded;
+
     @Override
     public void onEnable() {
 
         plugin = this;
         kitMenu = Kit.getKitMenu();
         party = new Lobby(this);
-
-        this.getServer().createWorld(new WorldCreator("useless"));
-
+        System.out.println("COucoui");
 
         ListKitAbilities.loadAbilities();
 
@@ -72,6 +72,8 @@ public abstract class HungerGames extends JavaPlugin {
         this.getServer().unloadWorld("useless", false);
 
         deleteFile(world);
+
+        this.getServer().createWorld(new WorldCreator("useless"));
     }
 
     public void restart(){
@@ -85,11 +87,4 @@ public abstract class HungerGames extends JavaPlugin {
         restart();
         changeWorld();
     }
-
-
-
-
-
-
-
 }

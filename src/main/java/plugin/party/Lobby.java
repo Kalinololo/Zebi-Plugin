@@ -25,9 +25,10 @@ public class Lobby implements Runnable {
 
     public Lobby(HungerGames plugin){
         players = new HashSet<>();
-        timer = -60;
+        timer = -61;
         isStarted = false;
         this.plugin = plugin;
+        HungerGames.isEnded = false;
     }
 
 
@@ -35,7 +36,7 @@ public class Lobby implements Runnable {
     public void run() {
         time = new Timer();
 
-        plugin.getServer().getWorld("useless").setPVP(false);
+        //plugin.getServer().getWorld("useless").setPVP(false);
 
         time.schedule(new TimerTask() {
             @Override
@@ -62,6 +63,8 @@ public class Lobby implements Runnable {
 
     public void end(){
         plugin.getServer().broadcastMessage("§6" + players.iterator().next().getName() + " a gagné la partie ce bg !");
+
+        HungerGames.isEnded = true;
 
         stopTimer();
 
