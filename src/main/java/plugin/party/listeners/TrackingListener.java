@@ -42,8 +42,10 @@ public class TrackingListener implements Listener {
         double nearestRange = 0;
         Player nearestPlayer = p;
 
-        for (Player player: p.getWorld().getPlayers()) {
-            if((player.getLocation().distance(pos) <= nearestRange || nearestRange==0) && player.getUniqueId() != p.getUniqueId()){
+        for (Player player: p.getWorld().getPlayers())
+        {
+            if(((player.getLocation().distance(pos) <= nearestRange || nearestRange==0) && player.getUniqueId() != p.getUniqueId()) && HungerGames.party.getPlayers().contains(player))
+            {
                 nearestRange = player.getLocation().distance(pos);
                 nearestPlayer = player;
             }

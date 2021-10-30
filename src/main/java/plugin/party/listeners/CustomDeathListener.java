@@ -37,7 +37,6 @@ public class CustomDeathListener implements Listener {
         e.getVictim().getWorld().strikeLightningEffect(e.getVictim().getLocation());
         e.getVictim().setGameMode(GameMode.SPECTATOR);
         e.getVictim().getInventory().clear();
-
         if(e.getKiller() == e.getVictim()){
             e.getVictim().getServer().broadcastMessage(e.getVictim().getName() + " s'est lui même bouillave sa grande tante ce bot.");
         }else{
@@ -45,7 +44,6 @@ public class CustomDeathListener implements Listener {
         }
 
         HungerGames.party.removePlayer(e.getVictim());
-
         if(HungerGames.party.getPlayers().size() == 1) {
             HungerGames.party.end();
         }

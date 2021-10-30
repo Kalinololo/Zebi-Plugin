@@ -2,6 +2,7 @@ package plugin.commands.commandClass;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import plugin.HungerGames;
 import plugin.commands.ICommands;
 
 import java.io.File;
@@ -19,7 +20,7 @@ public class CommandDWorld implements ICommands {
                     return false;
                 }
 
-                sender.getServer().unloadWorld(args[0], false);
+                HungerGames.plugin.getServer().unloadWorld(args[0], false);
                 deleteFile(world);
 
                 sender.sendMessage("§5Le monde a été §lsupprimé avec succés.");

@@ -11,6 +11,8 @@ import plugin.HungerGames;
 import plugin.kits.Kit;
 import plugin.kits.lists.ListKit;
 
+import java.util.Objects;
+
 import static plugin.kits.Kit.getKitSelector;
 
 public class KitMenuListener implements Listener {
@@ -28,7 +30,14 @@ public class KitMenuListener implements Listener {
     public void onDrop(InventoryClickEvent e){
         if(HungerGames.kitMenu.contains(e.getCurrentItem())){
             String kitName = e.getCurrentItem().getItemMeta().getDisplayName();
-            Kit.setKit((Player) e.getWhoClicked(), ListKit.valueOf(kitName.toUpperCase()));
+            for (ListKit kit : ListKit.values())
+            {
+                if (Objects.equals(kit.getName(), kitName))
+                {
+                    Kit.setKit((Player) e.getWhoClicked(), kit);
+                    break;
+                }
+            }
             e.getWhoClicked().sendMessage("§6Vous avez sélectionné le kit " + kitName + ".");
             e.setCancelled(true);
         }

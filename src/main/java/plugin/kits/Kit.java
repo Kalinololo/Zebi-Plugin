@@ -36,18 +36,20 @@ public class Kit{
     }
 
     private static void setKitAbilities(Player p){
-        for (ListKitAbilities ability:getKitAbilities(getKit(p))) {
+        for (ListKitAbilities ability:getKitAbilities(getKit(p)))
+        {
             ability.getAbility().removePlayer(p);
         }
     }
 
-    private static final Map<Player, ListKit> playerSelectedKit = new HashMap<>();
+    public static Map<Player, ListKit> playerSelectedKit;
 
     public static void fillInventory(Player player){
         getKit(player).fillInventory(player);
     }
 
-    public static ArrayList<ListKit> listKits(){
+    public static ArrayList<ListKit> listKits()
+    {
         return new ArrayList<>(Arrays.asList(ListKit.values()));
     }
 
@@ -72,14 +74,16 @@ public class Kit{
         ArrayList<ListKit> kits = Kit.listKits();
         Inventory menu = Bukkit.createInventory(null, 54, "Sélectionne ton kit !");
 
-        for (ListKit kit : kits) {
+        for (ListKit kit : kits)
+        {
             ItemStack item = new ItemStack(kit.getImage(), 1);
             ItemMeta meta = item.getItemMeta();
             ArrayList<String> itemDesc = new ArrayList<>();
 
             itemDesc.add(kit.getDescription());
 
-            for (ListKitContent kitItem : kit.getItems()) {
+            for (ListKitContent kitItem : kit.getItems())
+            {
                 itemDesc.add(" - " + kitItem.getName());
             }
 
@@ -92,7 +96,6 @@ public class Kit{
 
             menu.addItem(item);
         }
-
         return menu;
     }
 
