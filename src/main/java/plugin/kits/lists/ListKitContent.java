@@ -1,4 +1,4 @@
-package plugin.kits;
+package plugin.kits.lists;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -15,6 +15,21 @@ public enum ListKitContent {
     SWAPPER_SNOWBALL(ListKit.SWAPPER, "Boule de neige x24", new ItemStack(Material.SNOW_BALL, 24)),
     SWAPPER_SHOVEL(ListKit.SWAPPER, "Pelle en fer", new ItemStack(Material.IRON_SPADE, 1)),
 
+    //FIREMAN
+
+    FIREMAN_MAGMA(ListKit.FIREMAN, "Lance flamme", new ItemStack(Material.MAGMA_CREAM, 1)),
+
+    //JUMPER
+    JUMPER_MUSHROOM(ListKit.JUMPER, "SAUTE !!!", new ItemStack(Material.RED_MUSHROOM)),
+
+    //MEILLEUR
+    MEILLEUR_BOOT(ListKit.MEILLEUR, "Bottes en maille", new ItemStack(Material.CHAINMAIL_BOOTS)),
+
+    //VAMPIRE
+    VAMPIRE_FORCE(ListKit.VAMPIRE, "Potion de force", /*getPotion(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 150, 1))*/ new ItemStack(Material.POTION, 1, (short) 73)),
+
+    //GRANDMERE
+    POPOTE(ListKit.GRANDMERE, "le Potage", new ItemStack(Material.MUSHROOM_SOUP, 1)),
 
     COMPASS("Boussole", new ItemStack(Material.COMPASS, 1));
 

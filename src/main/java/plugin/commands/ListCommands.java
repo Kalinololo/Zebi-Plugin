@@ -14,10 +14,12 @@ public enum ListCommands {
     KIT("kit", new CommandKit()),
     SP("sp", new CommandSpectator()),
     S("s", new CommandSurvival()),
-    C("c", new CommandCreative());
+    C("c", new CommandCreative()),
+    HG("hg", new CommandHGParty()),
+    FLY("fly", new CommandFly());
 
     private final String name;
-    private final Commands commands;
+    private final ICommands commands;
 
     ListCommands(String name, ICommands commands){
         this.name = name;

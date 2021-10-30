@@ -53,12 +53,12 @@ public class Lobby implements Runnable {
                     isStarted = true;
                     startGame();
                 }else if(timer < 0){
-                    if(timer%15 == 0){
-                        HungerGames.plugin.getServer().broadcastMessage("La partie commence dans " + -timer + " secondes.");
+                    if(timer%15 == 0 || (timer >= -5 && timer <= 0)){
+                        plugin.getServer().broadcastMessage("§6La partie commence dans " + -timer + " secondes.");
                     }
                 }else{
-                    HungerGames.plugin.getServer().broadcastMessage("Pas assez de joueur pour commencer la partie.");
-                    timer = -60;
+                    plugin.getServer().broadcastMessage("§6Pas assez de joueur pour commencer la partie.");
+                    timer = -61;
                 }
             }
         }, 1000, 1000);
@@ -151,7 +151,7 @@ public class Lobby implements Runnable {
         for (Player p:players) {
             Location loc = p.getWorld().getSpawnLocation();
             loc.setY(loc.getY() + 100);
-
+            p.setFoodLevel(20);
             p.teleport(loc);
             p.setSaturation(5);
             p.setGameMode(GameMode.SURVIVAL);

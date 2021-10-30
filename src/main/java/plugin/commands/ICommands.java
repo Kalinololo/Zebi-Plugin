@@ -5,6 +5,6 @@ import org.bukkit.command.CommandSender;
 
 public interface ICommands {
 
-    void exec(CommandSender sender, Command command, String label, String[] args);
+    boolean exec(CommandSender sender, Command command, String label, String[] args);
 
 }

@@ -32,6 +32,9 @@ public class LobbyListener implements Listener{
             p.setAllowFlight(true);
             p.setHealth(p.getMaxHealth());
             p.setFoodLevel(20);
+            p.setSaturation(1000);
+            for (PotionEffect effect : e.getPlayer().getActivePotionEffects())
+                e.getPlayer().removePotionEffect(effect.getType());
 
             Location pos = HungerGames.plugin.getServer().getWorld("useless").getSpawnLocation();
 

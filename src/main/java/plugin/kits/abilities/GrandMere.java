@@ -2,6 +2,7 @@ package plugin.kits.abilities;
 
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import plugin.kits.KitListener;
 
@@ -9,10 +10,15 @@ import plugin.kits.KitListener;
 
 public class GrandMere extends KitListener {
     @EventHandler
-    public void onSoupe(PlayerItemConsumeEvent e){
+    public void onSoupe(PlayerInteractEvent e){
         if(e.getItem().getType() == Material.MUSHROOM_SOUP && hasAbility(e.getPlayer())){
-            double miam = e.getPlayer().getHealth();
-            e.getPlayer().setHealth(miam + 4);
+            if(isCooldowned(e.getPlayer(), 7500)){
+                double miam = e.getPlayer().getHealth();
+                e.getPlayer().setHealth(miam + 6);
+            }
+            e.setCancelled(true);
         }
     }
 }
+
+

@@ -1,4 +1,4 @@
-package plugin.kits;
+package plugin.kits.lists;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import plugin.HungerGames;
@@ -13,7 +13,8 @@ public enum ListKitAbilities {
     JUMPER("JUMPER", new Jumper()),
     FREEFALL("FREEFALL", new Stomper()),
     VAMPIRE("VAMPIRE", new Vampire()),
-    SECRET("SECRET", new CommandEz());
+    SECRET("SECRET", new CommandEz()),
+    GRANDMERE("GRANDMERE", new GrandMere());
 
 
     private String name;
