@@ -21,9 +21,7 @@ public class LobbyListener implements Listener{
 
     @EventHandler
     public void onConnect(PlayerJoinEvent e){
-        if(HungerGames.isEnded){
-            e.getPlayer().kickPlayer("§8La partie est en cours de redémarrage.");
-        } else if(!party.isStarted()){
+        if(!party.isStarted()){
             Player p = e.getPlayer();
             p.getInventory().clear();
             p.getInventory().setArmorContents(null);
@@ -33,7 +31,7 @@ public class LobbyListener implements Listener{
             p.setHealth(p.getMaxHealth());
             p.setFoodLevel(20);
 
-            Location pos = HungerGames.plugin.getServer().getWorld("useless").getSpawnLocation();
+            Location pos = HungerGames.plugin.getServer().getWorld(HungerGames.map).getSpawnLocation();
             pos.setY(pos.getY() + 100);
             p.teleport(pos);
 
@@ -45,7 +43,7 @@ public class LobbyListener implements Listener{
 
     @EventHandler
     public void onDisconnect(PlayerQuitEvent e){
-        if(party.isStarted()){
+        if(party.isStarted() && !HungerGames.isEnded){
             HungerGames.plugin.getServer().getPluginManager().callEvent(new PlayerCustomDeathEvent(e.getPlayer(), e.getPlayer(), 0));
         }
         if(Kit.getKit(e.getPlayer()) != null){

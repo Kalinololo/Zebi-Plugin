@@ -16,7 +16,8 @@ public class KitListener implements Listener {
 
     private static HashMap<Player, Date> cooldownManager = new HashMap<>();
 
-    public boolean hasAbility(Player p) {
+    public boolean hasAbility(Player p)
+    {
         return myPlayers.contains(p);
     }
 

@@ -28,6 +28,8 @@ public class Lobby implements Runnable {
 
     private HungerGames plugin;
 
+    private final int pvpTime = 15;
+
     public Lobby(HungerGames plugin){
         players = new HashSet<>();
         timer = -61;
@@ -97,7 +99,7 @@ public class Lobby implements Runnable {
             p.setSaturation(1000);
             for (PotionEffect effect : p.getActivePotionEffects())
                 p.removePotionEffect(effect.getType());
-            Location pos = HungerGames.plugin.getServer().getWorld("useless").getSpawnLocation();
+            Location pos = HungerGames.plugin.getServer().getWorld(HungerGames.map).getSpawnLocation();
             pos.setY(pos.getY() + 100);
             p.teleport(pos);
             addPlayer(p);
@@ -121,11 +123,11 @@ public class Lobby implements Runnable {
     }
 
     public void startPVP(){
-        if(timer == 60){
+        if(timer == pvpTime){
             plugin.getServer().broadcastMessage("§6Que le meilleur gagne !");
             pvpActive = true;
-        }else if(timer%15 == 0 || (timer >= 55 && timer < 60)){
-            plugin.getServer().broadcastMessage("§6Il reste " + (60-timer) + " secondes avant que le PVP s'active.");
+        }else if(timer%15 == 0 || (timer >= pvpTime - 5 && timer < pvpTime)){
+            plugin.getServer().broadcastMessage("§6Il reste " + (pvpTime-timer) + " secondes avant que le PVP s'active.");
         }
     }
 
@@ -137,6 +139,7 @@ public class Lobby implements Runnable {
         else if (started)
         {
             isStarted = started;
+            timer = 0;
             startGame();
             return true;
         }

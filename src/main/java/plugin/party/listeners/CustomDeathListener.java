@@ -42,7 +42,6 @@ public class CustomDeathListener implements Listener {
         }else{
             e.getVictim().getServer().broadcastMessage(e.getVictim().getName() + " s'est fait bouillave sa grande tante par " + e.getKiller().getName());
         }
-
         HungerGames.party.removePlayer(e.getVictim());
         if(HungerGames.party.getPlayers().size() == 1) {
             HungerGames.party.end();
