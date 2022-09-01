@@ -34,9 +34,7 @@ public class LobbyListener implements Listener{
             p.setFoodLevel(20);
 
             Location pos = HungerGames.plugin.getServer().getWorld("useless").getSpawnLocation();
-
             pos.setY(pos.getY() + 100);
-
             p.teleport(pos);
 
             party.addPlayer(e.getPlayer());

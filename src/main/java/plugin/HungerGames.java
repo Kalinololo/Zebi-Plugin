@@ -29,13 +29,12 @@ public class HungerGames extends JavaPlugin {
     {
         isEnded = true;
         plugin = this;
+        if (!(new File("/home/celian/loan/useless").exists()))
+            plugin.getServer().createWorld(new WorldCreator("useless"));
         kitMenu = Kit.getKitMenu();
         ListKitAbilities.loadAbilities();
         new Commands().start();
         init_lobby();
-        isEnded = true;
-        changeworld();
-        isEnded = false;
     }
 
     @Override
@@ -64,7 +63,7 @@ public class HungerGames extends JavaPlugin {
     {
         for (Player p: this.getServer().getOnlinePlayers())
         {
-            p.teleport(getServer().getWorld("world").getSpawnLocation());
+            p.kickPlayer("Server restarting !");
         }
     }
 
@@ -74,19 +73,14 @@ public class HungerGames extends JavaPlugin {
         getServer().getScheduler().cancelTask(lobby_task_id);
         getServer().getScheduler().cancelAllTasks();
         changeworld();
-        init_lobby();
     }
 
     private void changeworld()
     {
-        File world = new File(plugin.getServer().getWorldContainer().getPath() + "/" + "useless");
-
-        if (world.exists())
-        {
-            getServer().unloadWorld("useless", false);
-            deleteFile(world);
-        }
-        plugin.getServer().createWorld(new WorldCreator("useless"));
+        File world = new File("/home/celian/loan/useless");
+        getServer().unloadWorld("useless", false);
+        deleteFile(world);
+        Bukkit.reload();
     }
 
     private void deleteFile(File file){

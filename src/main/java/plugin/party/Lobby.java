@@ -129,14 +129,18 @@ public class Lobby implements Runnable {
         }
     }
 
-    public boolean setStarted(boolean started) {
+    public boolean setStarted(boolean started)
+    {
         if(isStarted){
             return false;
-        }else{
+        }
+        else if (started)
+        {
             isStarted = started;
             startGame();
             return true;
         }
+        return true;
     }
 
     public boolean canStart(){
