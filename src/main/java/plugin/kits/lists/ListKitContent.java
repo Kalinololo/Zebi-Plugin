@@ -20,7 +20,7 @@ public enum ListKitContent {
     FIREMAN_MAGMA(ListKit.FIREMAN, "Lance flamme", new ItemStack(Material.MAGMA_CREAM, 1)),
 
     //JUMPER
-    JUMPER_MUSHROOM(ListKit.JUMPER, "SAUTE !!!", new ItemStack(Material.RED_MUSHROOM)),
+    JUMPER_MUSHROOM(ListKit.JUMPER, "SAUTE !!!", new ItemStack(Material.FIREWORK_ROCKET)),
 
     //MEILLEUR
     MEILLEUR_BOOT(ListKit.MEILLEUR, "Bottes en maille", new ItemStack(Material.CHAINMAIL_BOOTS)),
