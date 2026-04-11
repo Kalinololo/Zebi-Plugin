@@ -22,7 +22,6 @@ public class HungerGames extends JavaPlugin {
     public static Inventory kitMenu;
     public static Lobby party;
     public static boolean isEnded;
-    private static int lobby_task_id;
 
     @Override
     public void onEnable()
@@ -41,7 +40,7 @@ public class HungerGames extends JavaPlugin {
     @Override
     public void onDisable()
     {
-        Bukkit.getScheduler().cancelAllTasks();
+        //Bukkit.getScheduler().cancelAllTasks();
     }
 
     private void loadListeners(){
@@ -55,7 +54,7 @@ public class HungerGames extends JavaPlugin {
     {
         Kit.playerSelectedKit = new HashMap<>();
         party = new Lobby(this);
-        lobby_task_id = Bukkit.getScheduler().runTaskAsynchronously(this, party).getTaskId();
+        party.start();
         loadListeners();
         isEnded = false;
     }
@@ -71,8 +70,6 @@ public class HungerGames extends JavaPlugin {
     public void stopServer()
     {
         kick_all();
-        getServer().getScheduler().cancelTask(lobby_task_id);
-        getServer().getScheduler().cancelAllTasks();
         changeworld();
         init_lobby();
     }

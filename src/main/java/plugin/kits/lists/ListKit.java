@@ -8,12 +8,12 @@ import java.util.ArrayList;
 public enum ListKit {
 
 
-    SWAPPER("Swapper", "Tu pratiques la bataille de boule de neige à haut niveau ? Ce kit est fait pour toi ! Touche ta cible afin d'échanger de place avec celle-ci.", new ListKitAbilities[]{ListKitAbilities.SWAP}, Material.SNOW_BALL),
+    SWAPPER("Swapper", "Tu pratiques la bataille de boule de neige à haut niveau ? Ce kit est fait pour toi ! Touche ta cible afin d'échanger de place avec celle-ci.", new ListKitAbilities[]{ListKitAbilities.SWAP}, Material.SNOWBALL),
     FIREMAN("Fireman", "Tu lances des grosses boules de feu, un peu comme si tu étais un mage !", new ListKitAbilities[]{ListKitAbilities.FIREMAN}, Material.MAGMA_CREAM),
     VAMPIRE("Vampire", "Tu es doté d'une force surhumaine et tu te découvres une certain passion pour la dégustation du sang de tes ennemis.", new ListKitAbilities[]{ListKitAbilities.VAMPIRE}, Material.REDSTONE),
-    MEILLEUR("Meilleur", "Selon la prophétie, tu serais l'élu... Mais faut-il encore que tu sois prêt...",  new ListKitAbilities[]{ListKitAbilities.SECRET}, Material.BOOK_AND_QUILL),
-    JUMPER("Jumper", "Tu peux sauter haut et faire mal au gens en tombant... Pas très gentil mais bon...", new ListKitAbilities[]{ListKitAbilities.JUMPER,ListKitAbilities.FREEFALL}, Material.FIREWORK),
-    GRANDMERE("Grand-Mère", "Tu bois ta soupe comme une bonne grand-mère", new ListKitAbilities[]{ListKitAbilities.GRANDMERE}, Material.MUSHROOM_SOUP);
+    MEILLEUR("Meilleur", "Selon la prophétie, tu serais l'élu... Mais faut-il encore que tu sois prêt...",  new ListKitAbilities[]{ListKitAbilities.SECRET}, Material.BOOK),
+    JUMPER("Jumper", "Tu peux sauter haut et faire mal au gens en tombant... Pas très gentil mais bon...", new ListKitAbilities[]{ListKitAbilities.JUMPER,ListKitAbilities.FREEFALL}, Material.FIREWORK_ROCKET),
+    GRANDMERE("Grand-Mère", "Tu bois ta soupe comme une bonne grand-mère", new ListKitAbilities[]{ListKitAbilities.GRANDMERE}, Material.MUSHROOM_STEW);
 
     private String name, description;
     private ListKitAbilities[] abilities;

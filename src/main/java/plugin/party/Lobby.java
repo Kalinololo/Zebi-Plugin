@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.scheduler.BukkitTask;
 import plugin.HungerGames;
 import plugin.kits.Kit;
 import plugin.kits.lists.ListKit;
@@ -20,7 +21,9 @@ public class Lobby implements Runnable {
 
     private final Set<Player> players;
 
-    private Timer time;
+    private BukkitTask timeTask;
+
+    private BukkitTask restartTask;
 
     private boolean isStarted;
 
@@ -35,51 +38,50 @@ public class Lobby implements Runnable {
         this.plugin = plugin;
     }
 
+    public void start() {
+        timeTask = plugin.getServer().getScheduler().runTaskTimer(plugin, this, 20L, 20L);
+    }
+
 
     @Override
     public void run() {
         if (plugin.getServer().getOnlinePlayers().size() >= 1)
             init_players();
-        time = new Timer();
-        time.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                timer++;
-                if(isStarted){
-                    if(!pvpActive){
-                        startPVP();
-                    }
-                }else if(canStart()){
-                    isStarted = true;
-                    startGame();
-                }else if(timer < 0){
-                    if(timer%15 == 0 || (timer >= -5 && timer <= 0)){
-                        plugin.getServer().broadcastMessage("§6La partie commence dans " + -timer + " secondes.");
-                    }
-                }else{
-                    plugin.getServer().broadcastMessage("§6Pas assez de joueur pour commencer la partie.");
-                    timer = -61;
-                }
+
+        timer++;
+        if(isStarted){
+            if(!pvpActive){
+                startPVP();
             }
-        }, 1000, 1000);
+        }else if(canStart()){
+            isStarted = true;
+            startGame();
+        }else if(timer < 0){
+            if(timer%15 == 0 || (timer >= -5 && timer <= 0)){
+                plugin.getServer().broadcastMessage("§6La partie commence dans " + -timer + " secondes.");
+            }
+        }else{
+            plugin.getServer().broadcastMessage("§6Pas assez de joueur pour commencer la partie.");
+            timer = -61;
+        }
     }
 
     public void end(){
         plugin.getServer().broadcastMessage("§6" + players.iterator().next().getName() + " a gagné la partie ce bg !");
         HungerGames.isEnded = true;
         stopTimer();
-        time = new Timer();
         timer = 0;
-        time.schedule(new TimerTask() {
+        restartTask = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
             @Override
             public void run() {
                 timer++;
                 if(timer == 10){
                     stop();
+                    return;
                 }
                 plugin.getServer().broadcastMessage("Le serveur va être redémarrer dans " + (10-timer) + " secondes !");
             }
-        }, 1000, 1000);
+        }, 20L, 20L);
 
     }
 
@@ -87,6 +89,9 @@ public class Lobby implements Runnable {
     {
         for (Player p : plugin.getServer().getOnlinePlayers())
         {
+            if (players.contains(p)){
+                continue;
+            }
             p.getInventory().clear();
             p.getInventory().setArmorContents(null);
             p.getInventory().addItem(getKitSelector());
@@ -165,12 +170,21 @@ public class Lobby implements Runnable {
     }
 
     public void stopTimer(){
-        time.purge();
-        time.cancel();
-        time = null;
+        if (timeTask != null) {
+            timeTask.cancel();
+            timeTask = null;
+        }
+    }
+
+    private void stopRestartTimer() {
+        if (restartTask != null) {
+            restartTask.cancel();
+            restartTask = null;
+        }
     }
 
     public void stop(){
+        stopRestartTimer();
         stopTimer();
         plugin.stopServer();
     }

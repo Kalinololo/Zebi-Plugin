@@ -90,7 +90,7 @@ public class Kit{
             meta.setDisplayName(kit.getName());
             meta.setLore(itemDesc);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-            meta.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+            meta.addEnchant(Enchantment.INFINITY, 1, true);
 
             item.setItemMeta(meta);
 
@@ -105,7 +105,7 @@ public class Kit{
 
         ks.setDisplayName("§9 Sélecteur de kit");
         ks.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-        ks.addEnchant(Enchantment.ARROW_INFINITE, 1, true);
+        ks.addEnchant(Enchantment.INFINITY, 1, true);
 
         plume.setItemMeta(ks);
 

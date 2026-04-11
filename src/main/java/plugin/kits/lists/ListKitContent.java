@@ -12,8 +12,8 @@ public enum ListKitContent {
 
     //Swapper
 
-    SWAPPER_SNOWBALL(ListKit.SWAPPER, "Boule de neige x24", new ItemStack(Material.SNOW_BALL, 24)),
-    SWAPPER_SHOVEL(ListKit.SWAPPER, "Pelle en fer", new ItemStack(Material.IRON_SPADE, 1)),
+    SWAPPER_SNOWBALL(ListKit.SWAPPER, "Boule de neige x24", new ItemStack(Material.SNOWBALL, 24)),
+    SWAPPER_SHOVEL(ListKit.SWAPPER, "Pelle en fer", new ItemStack(Material.IRON_SHOVEL, 1)),
 
     //FIREMAN
 
@@ -29,7 +29,7 @@ public enum ListKitContent {
     VAMPIRE_FORCE(ListKit.VAMPIRE, "Potion de force", /*getPotion(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 150, 1))*/ new ItemStack(Material.POTION, 1, (short) 73)),
 
     //GRANDMERE
-    POPOTE(ListKit.GRANDMERE, "le Potage", new ItemStack(Material.MUSHROOM_SOUP, 1)),
+    POPOTE(ListKit.GRANDMERE, "le Potage", new ItemStack(Material.MUSHROOM_STEW, 1)),
 
     COMPASS("Boussole", new ItemStack(Material.COMPASS, 1));
 

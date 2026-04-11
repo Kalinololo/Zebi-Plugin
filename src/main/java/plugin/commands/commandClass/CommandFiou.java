@@ -22,7 +22,7 @@ public class CommandFiou implements ICommands {
 
                 int max = Integer.parseInt(args[0]);
                 for (int i = 0; i < max; i++) {
-                    ((Player) sender).getWorld().spawnEntity(pos, EntityType.PIG_ZOMBIE);
+                    ((Player) sender).getWorld().spawnEntity(pos, EntityType.ZOMBIFIED_PIGLIN);
                 }
             }
         }
