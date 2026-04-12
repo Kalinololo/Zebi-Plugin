@@ -5,6 +5,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
 
@@ -26,10 +27,22 @@ public enum ListKitContent {
     MEILLEUR_BOOT(ListKit.MEILLEUR, "Bottes en maille", new ItemStack(Material.CHAINMAIL_BOOTS)),
 
     //VAMPIRE
-    VAMPIRE_FORCE(ListKit.VAMPIRE, "Potion de force", /*getPotion(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 150, 1))*/ new ItemStack(Material.POTION, 1, (short) 73)),
+    VAMPIRE_FORCE(ListKit.VAMPIRE, "Potion de force", getPotion(new PotionEffect(PotionEffectType.STRENGTH, 150, 1))),
 
     //GRANDMERE
     POPOTE(ListKit.GRANDMERE, "le Potage", new ItemStack(Material.MUSHROOM_STEW, 1)),
+
+    //CAVALIER
+    CAVALIER_SADDLE(ListKit.CAVALIER, "Selle", new ItemStack(Material.SADDLE, 1)),
+    CAVALIER_LEAD(ListKit.CAVALIER, "Laisse", new ItemStack(Material.LEAD, 1)),
+    CAVALIER_BOW(ListKit.CAVALIER, "Arc", new ItemStack(Material.BOW, 1)),
+    CAVALIER_ARROW(ListKit.CAVALIER, "Flèche x8", new ItemStack(Material.ARROW, 8)),
+
+    //ABORT
+    ABORT_EYE(ListKit.ABORT, "Oeil de l'Ender", new ItemStack(Material.ENDER_EYE, 1)),
+
+    //POSEIDON
+    POSEIDON_BUCKET(ListKit.POSEIDON, "Seau d'eau", new ItemStack(Material.WATER_BUCKET, 1)),
 
     COMPASS("Boussole", new ItemStack(Material.COMPASS, 1));
 

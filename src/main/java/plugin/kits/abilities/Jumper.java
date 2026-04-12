@@ -14,11 +14,12 @@ public class Jumper extends KitListener {
     public void onJumper(PlayerInteractEvent e) {
         try {
             Player player = e.getPlayer();
-            if (e.getItem().getType() == Material.RED_MUSHROOM && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && hasAbility(player)) {
+            if (e.getItem().getType() == Material.FIREWORK_ROCKET && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) && hasAbility(player)) {
                 if (isCooldowned(player, 10000)) {
                     Vector dir = player.getEyeLocation().getDirection();
                     player.setVelocity(new Vector(dir.getX() * 0.4, 2, dir.getZ() * 0.4));
                 }
+                e.setCancelled(true);
             }
         } catch (Exception ignored) {}
     }

@@ -13,7 +13,10 @@ public enum ListKit {
     VAMPIRE("Vampire", "Tu es doté d'une force surhumaine et tu te découvres une certain passion pour la dégustation du sang de tes ennemis.", new ListKitAbilities[]{ListKitAbilities.VAMPIRE}, Material.REDSTONE),
     MEILLEUR("Meilleur", "Selon la prophétie, tu serais l'élu... Mais faut-il encore que tu sois prêt...",  new ListKitAbilities[]{ListKitAbilities.SECRET}, Material.BOOK),
     JUMPER("Jumper", "Tu peux sauter haut et faire mal au gens en tombant... Pas très gentil mais bon...", new ListKitAbilities[]{ListKitAbilities.JUMPER,ListKitAbilities.FREEFALL}, Material.FIREWORK_ROCKET),
-    GRANDMERE("Grand-Mère", "Tu bois ta soupe comme une bonne grand-mère", new ListKitAbilities[]{ListKitAbilities.GRANDMERE}, Material.MUSHROOM_STEW);
+    GRANDMERE("Grand-Mère", "Tu bois ta soupe comme une bonne grand-mère", new ListKitAbilities[]{ListKitAbilities.GRANDMERE}, Material.MUSHROOM_STEW),
+    CAVALIER("Cavalier", "Tu es un cavalier, tu peux galoper à travers les champs de bataille et écraser tes ennemis !", new ListKitAbilities[]{ListKitAbilities.CAVALIER}, Material.SADDLE),
+    ABORT("Abort", "Tu peux dash dans tous les sens et etre un veritable moustique pour tes adversaires !", new ListKitAbilities[]{ListKitAbilities.ABORT}, Material.ENDER_EYE),
+    POSEIDON("Poseidon", "Tu es le dieu de la mer, tant que tu es dans l'eau personne ne peut te resister !", new ListKitAbilities[]{ListKitAbilities.POSEIDON}, Material.WATER_BUCKET);
 
     private String name, description;
     private ListKitAbilities[] abilities;

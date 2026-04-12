@@ -14,7 +14,10 @@ public enum ListKitAbilities {
     FREEFALL("FREEFALL", new Stomper()),
     VAMPIRE("VAMPIRE", new Vampire()),
     SECRET("SECRET", new CommandEz()),
-    GRANDMERE("GRANDMERE", new GrandMere());
+    GRANDMERE("GRANDMERE", new GrandMere()),
+    CAVALIER("CAVALIER", new Cavalier()),
+    ABORT("ABORT", new Abort()),
+    POSEIDON("POSEIDON", new Poseidon());
 
 
     private String name;
