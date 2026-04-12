@@ -17,7 +17,8 @@ public enum ListKit {
     CAVALIER("Cavalier", "Tu es un cavalier, tu peux galoper à travers les champs de bataille et écraser tes ennemis !", new ListKitAbilities[]{ListKitAbilities.CAVALIER}, Material.SADDLE),
     ABORT("Abort", "Tu peux dash dans tous les sens et etre un veritable moustique pour tes adversaires !", new ListKitAbilities[]{ListKitAbilities.ABORT}, Material.ENDER_EYE),
     POSEIDON("Poseidon", "Tu es le dieu de la mer, tant que tu es dans l'eau personne ne peut te resister !", new ListKitAbilities[]{ListKitAbilities.POSEIDON}, Material.WATER_BUCKET),
-    SWINDLER("Swindler", "Tu es un vrai p'tit filou !", new ListKitAbilities[]{ListKitAbilities.SWINDLER}, Material.STICK);
+    SWINDLER("Swindler", "Tu es un vrai p'tit filou !", new ListKitAbilities[]{ListKitAbilities.SWINDLER}, Material.STICK),
+    THOR("Thor", "Tu es le dieu du tonnerre, tu peux faire tomber la foudre sur tes ennemis !", new ListKitAbilities[]{ListKitAbilities.THOR}, Material.MACE);
 
     private String name, description;
     private ListKitAbilities[] abilities;

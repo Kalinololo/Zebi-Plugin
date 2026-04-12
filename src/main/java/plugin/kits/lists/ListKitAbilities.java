@@ -14,6 +14,7 @@ import plugin.kits.abilities.Poseidon;
 import plugin.kits.abilities.Stomper;
 import plugin.kits.abilities.Swapper;
 import plugin.kits.abilities.Swindler;
+import plugin.kits.abilities.Thor;
 import plugin.kits.abilities.Vampire;
 
 public enum ListKitAbilities {
@@ -28,7 +29,8 @@ public enum ListKitAbilities {
     CAVALIER("CAVALIER", new Cavalier()),
     ABORT("ABORT", new Abort()),
     POSEIDON("POSEIDON", new Poseidon()),
-    SWINDLER("SWINDLER", new Swindler());
+    SWINDLER("SWINDLER", new Swindler()),
+    THOR("THOR", new Thor());
 
 
     private String name;

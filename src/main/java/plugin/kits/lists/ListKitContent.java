@@ -46,6 +46,9 @@ public enum ListKitContent {
     //SWINDLER
     SWINDLER_STICK(ListKit.SWINDLER, "Baton de pickpocket", new ItemStack(Material.STICK, 1)),
 
+    //THOR
+    THOR_HAMMER(ListKit.THOR, "Marteau de Thor", new ItemStack(Material.MACE, 1)),
+
     COMPASS("Boussole", new ItemStack(Material.COMPASS, 1));
 
     private String name;
