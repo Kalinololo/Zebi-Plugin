@@ -2,7 +2,6 @@ package plugin;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
@@ -37,7 +36,10 @@ public class HungerGames extends JavaPlugin {
 
         World world = Bukkit.getWorld("world");
 
-        if (world != null) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "gamerule locator_bar false");
+        
+
+        /*if (world != null) {
             int radius = 5;
 
             Chunk center = world.getSpawnLocation().getChunk();
@@ -51,7 +53,7 @@ public class HungerGames extends JavaPlugin {
             }
 
             Bukkit.getLogger().info("Spawn area force-loaded.");
-        }
+        }*/
         isEnded = false;
     }
 
