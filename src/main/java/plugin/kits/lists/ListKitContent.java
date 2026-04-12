@@ -27,7 +27,7 @@ public enum ListKitContent {
     MEILLEUR_BOOT(ListKit.MEILLEUR, "Bottes en maille", new ItemStack(Material.CHAINMAIL_BOOTS)),
 
     //VAMPIRE
-    VAMPIRE_FORCE(ListKit.VAMPIRE, "Potion de force", getPotion(new PotionEffect(PotionEffectType.STRENGTH, 150, 1))),
+    VAMPIRE_FORCE(ListKit.VAMPIRE, "Potion de force", getPotion(new PotionEffect(PotionEffectType.STRENGTH, 3000, 0))),
 
     //GRANDMERE
     POPOTE(ListKit.GRANDMERE, "le Potage", new ItemStack(Material.MUSHROOM_STEW, 1)),
