@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -96,10 +98,19 @@ public class Lobby implements Runnable {
     }
 
     public void startPVP(){
+        World world = HungerGames.plugin.getServer().getWorld("world");
+        WorldBorder border = world.getWorldBorder();
+
         if(timer == 60){
             plugin.getServer().broadcastMessage("§6Que le meilleur gagne !");
             pvpActive = true;
-        }else if(timer%15 == 0 || (timer >= 55 && timer < 60)){
+
+            border.setCenter(world.getSpawnLocation());
+            border.setSize(1000);
+            border.setSize(50, 9000);
+            border.setDamageAmount(1.0);
+            border.setDamageBuffer(5.0);
+        } else if(timer%15 == 0 || (timer >= 55 && timer < 60)){
             plugin.getServer().broadcastMessage("§6Il reste " + (60-timer) + " secondes avant que le PVP s'active.");
         }
     }
