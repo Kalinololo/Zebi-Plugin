@@ -44,6 +44,8 @@ public enum ListKitContent {
     //POSEIDON
     POSEIDON_BUCKET(ListKit.POSEIDON, "Seau d'eau", new ItemStack(Material.WATER_BUCKET, 1)),
 
+    THOR_HAMMER(ListKit.THOR, "Marteau de Thor", new ItemStack(Material.MACE, 1)),
+
     COMPASS("Boussole", new ItemStack(Material.COMPASS, 1));
 
     private String name;

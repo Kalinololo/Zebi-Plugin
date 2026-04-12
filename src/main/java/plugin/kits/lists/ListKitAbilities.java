@@ -17,7 +17,8 @@ public enum ListKitAbilities {
     GRANDMERE("GRANDMERE", new GrandMere()),
     CAVALIER("CAVALIER", new Cavalier()),
     ABORT("ABORT", new Abort()),
-    POSEIDON("POSEIDON", new Poseidon());
+    POSEIDON("POSEIDON", new Poseidon()),
+    THOR("THOR", new Thor());
 
 
     private String name;
