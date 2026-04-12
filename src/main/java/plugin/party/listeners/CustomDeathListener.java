@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.potion.PotionEffect;
+
 import plugin.HungerGames;
 import plugin.party.events.PlayerCustomDeathEvent;
 
@@ -15,7 +15,7 @@ public class CustomDeathListener implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent e){
-        if(!HungerGames.party.isStarted() || !HungerGames.party.isPvpActive()){
+        if(!HungerGames.party.isStarted() || (!HungerGames.party.isPvpActive() && e.getEntity().getType() == EntityType.PLAYER) || HungerGames.isEnded){
             e.setCancelled(true);
         }else if (e.getEntity().getType() == EntityType.PLAYER){
             Player victim = (Player) e.getEntity();

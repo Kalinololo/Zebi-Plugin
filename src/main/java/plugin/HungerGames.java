@@ -1,9 +1,13 @@
 package plugin;
+import java.util.HashMap;
+
 import org.bukkit.Bukkit;
-import org.bukkit.WorldCreator;
+import org.bukkit.Chunk;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import plugin.commands.Commands;
 import plugin.kits.Kit;
 import plugin.kits.listeners.KitMenuListener;
@@ -12,9 +16,6 @@ import plugin.party.Lobby;
 import plugin.party.listeners.CustomDeathListener;
 import plugin.party.listeners.LobbyListener;
 import plugin.party.listeners.TrackingListener;
-
-import java.io.File;
-import java.util.HashMap;
 
 public class HungerGames extends JavaPlugin {
 
@@ -32,8 +33,24 @@ public class HungerGames extends JavaPlugin {
         ListKitAbilities.loadAbilities();
         new Commands().start();
         init_lobby();
-        isEnded = true;
-        changeworld();
+
+        World world = Bukkit.getWorld("world");
+
+        if (world != null) {
+            int radius = 5;
+
+            Chunk center = world.getSpawnLocation().getChunk();
+            int cx = center.getX();
+            int cz = center.getZ();
+
+            for (int x = -radius; x <= radius; x++) {
+                for (int z = -radius; z <= radius; z++) {
+                    world.setChunkForceLoaded(cx + x, cz + z, true);
+                }
+            }
+
+            Bukkit.getLogger().info("Spawn area force-loaded.");
+        }
         isEnded = false;
     }
 
@@ -56,44 +73,19 @@ public class HungerGames extends JavaPlugin {
         party = new Lobby(this);
         party.start();
         loadListeners();
-        isEnded = false;
     }
 
     public void kick_all()
     {
         for (Player p: this.getServer().getOnlinePlayers())
         {
-            p.teleport(getServer().getWorld("world").getSpawnLocation());
+            p.kickPlayer("Server is restarting...");
         }
     }
 
     public void stopServer()
     {
         kick_all();
-        changeworld();
-        init_lobby();
-    }
-
-    private void changeworld()
-    {
-        File world = new File(plugin.getServer().getWorldContainer().getPath() + "/" + "useless");
-
-        if (world.exists())
-        {
-            getServer().unloadWorld("useless", false);
-            deleteFile(world);
-        }
-        plugin.getServer().createWorld(new WorldCreator("useless"));
-    }
-
-    private void deleteFile(File file){
-        if(file.isFile()) {
-            file.delete();
-        }else{
-            for (File f : file.listFiles()){
-                deleteFile(f);
-            }
-            file.delete();
-        }
+        Bukkit.spigot().restart();
     }
 }
