@@ -1,13 +1,12 @@
 package plugin.kits.lists;
 
+import java.util.ArrayList;
+
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.checkerframework.checker.units.qual.C;
-
-import java.util.ArrayList;
 
 public enum ListKitContent {
 
@@ -43,6 +42,9 @@ public enum ListKitContent {
 
     //POSEIDON
     POSEIDON_BUCKET(ListKit.POSEIDON, "Seau d'eau", new ItemStack(Material.WATER_BUCKET, 1)),
+
+    //SWINDLER
+    SWINDLER_STICK(ListKit.SWINDLER, "Baton de pickpocket", new ItemStack(Material.STICK, 1)),
 
     COMPASS("Boussole", new ItemStack(Material.COMPASS, 1));
 

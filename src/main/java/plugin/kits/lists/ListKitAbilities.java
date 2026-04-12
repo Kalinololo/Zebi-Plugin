@@ -1,10 +1,20 @@
 package plugin.kits.lists;
 
 import org.bukkit.plugin.java.JavaPlugin;
+
 import plugin.HungerGames;
 import plugin.commands.commandClass.CommandEz;
-import plugin.kits.abilities.*;
 import plugin.kits.KitListener;
+import plugin.kits.abilities.Abort;
+import plugin.kits.abilities.Cavalier;
+import plugin.kits.abilities.Fireman;
+import plugin.kits.abilities.GrandMere;
+import plugin.kits.abilities.Jumper;
+import plugin.kits.abilities.Poseidon;
+import plugin.kits.abilities.Stomper;
+import plugin.kits.abilities.Swapper;
+import plugin.kits.abilities.Swindler;
+import plugin.kits.abilities.Vampire;
 
 public enum ListKitAbilities {
 
@@ -17,7 +27,8 @@ public enum ListKitAbilities {
     GRANDMERE("GRANDMERE", new GrandMere()),
     CAVALIER("CAVALIER", new Cavalier()),
     ABORT("ABORT", new Abort()),
-    POSEIDON("POSEIDON", new Poseidon());
+    POSEIDON("POSEIDON", new Poseidon()),
+    SWINDLER("SWINDLER", new Swindler());
 
 
     private String name;
