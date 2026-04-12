@@ -35,8 +35,12 @@ public class CustomDeathListener implements Listener {
 
     @EventHandler
     public void onDeath(PlayerCustomDeathEvent e){
-        e.getVictim().getWorld().strikeLightningEffect(e.getVictim().getLocation());
-        e.getVictim().setGameMode(GameMode.SPECTATOR);
+        Player victim = e.getVictim();
+        victim.getWorld().strikeLightningEffect(e.getVictim().getLocation());
+        victim.setGameMode(GameMode.SPECTATOR);
+        victim.getInventory().forEach(item -> {
+            if (item != null) victim.getWorld().dropItemNaturally(victim.getLocation(), item);
+        });
         e.getVictim().getInventory().clear();
         if(e.getKiller() == e.getVictim()){
             e.getVictim().getServer().broadcastMessage(e.getVictim().getName() + " s'est lui même bouillave sa grande tante ce bot.");

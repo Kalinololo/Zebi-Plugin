@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemStack;
 
 import plugin.kits.KitListener;
 
@@ -21,8 +22,10 @@ public class Swindler extends KitListener {
                 EquipmentSlot item = damager.getActiveItemHand();
                 if (item != null && damager.getEquipment().getItem(item).getType() == Material.STICK && hasAbility(damager) && isCooldowned(damager, 10000))
                 {
-                    damaged.getInventory().setItem(java.util.concurrent.ThreadLocalRandom.current().nextInt(damaged.getInventory().getSize()), damaged.getInventory().getItemInMainHand());
-                    damaged.getInventory().setItemInMainHand(null);
+                    int index = java.util.concurrent.ThreadLocalRandom.current().nextInt(damaged.getInventory().getSize());
+                    ItemStack stolenItem = damaged.getInventory().getItem(index);
+                    damaged.getInventory().setItem(index, damaged.getInventory().getItemInMainHand());
+                    damaged.getInventory().setItemInMainHand(stolenItem);
                 }
             }
             
