@@ -2,18 +2,18 @@ package plugin.party.listeners;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
+
 import plugin.HungerGames;
 import plugin.kits.Kit;
+import static plugin.kits.Kit.getKitSelector;
 import plugin.party.Lobby;
 import plugin.party.events.PlayerCustomDeathEvent;
-
-import static plugin.kits.Kit.getKitSelector;
 
 public class LobbyListener implements Listener{
 
@@ -36,8 +36,8 @@ public class LobbyListener implements Listener{
             for (PotionEffect effect : e.getPlayer().getActivePotionEffects())
                 e.getPlayer().removePotionEffect(effect.getType());
 
-            Location pos = HungerGames.plugin.getServer().getWorld("useless").getSpawnLocation();
 
+            Location pos = HungerGames.plugin.getServer().getWorld("world").getSpawnLocation();
             pos.setY(pos.getY() + 100);
 
             p.teleport(pos);
@@ -45,6 +45,9 @@ public class LobbyListener implements Listener{
             party.addPlayer(e.getPlayer());
         }else{
             e.getPlayer().setGameMode(GameMode.SPECTATOR);
+            Location pos = HungerGames.plugin.getServer().getWorld("world").getSpawnLocation();
+            pos.setY(pos.getY() + 100);
+            e.getPlayer().teleport(pos);
         }
     }
 

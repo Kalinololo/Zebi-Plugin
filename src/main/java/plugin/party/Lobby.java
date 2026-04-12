@@ -1,19 +1,16 @@
 package plugin.party;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.scheduler.BukkitTask;
+
 import plugin.HungerGames;
 import plugin.kits.Kit;
 import plugin.kits.lists.ListKit;
-
-import java.io.File;
-import java.util.*;
-
-import static plugin.kits.Kit.getKitSelector;
 
 public class Lobby implements Runnable {
 
@@ -45,9 +42,6 @@ public class Lobby implements Runnable {
 
     @Override
     public void run() {
-        if (plugin.getServer().getOnlinePlayers().size() >= 1)
-            init_players();
-
         timer++;
         if(isStarted){
             if(!pvpActive){
@@ -67,8 +61,8 @@ public class Lobby implements Runnable {
     }
 
     public void end(){
-        plugin.getServer().broadcastMessage("§6" + players.iterator().next().getName() + " a gagné la partie ce bg !");
         HungerGames.isEnded = true;
+        plugin.getServer().broadcastMessage("§6" + players.iterator().next().getName() + " a gagné la partie ce bg !");
         stopTimer();
         timer = 0;
         restartTask = plugin.getServer().getScheduler().runTaskTimer(plugin, new Runnable() {
@@ -83,30 +77,6 @@ public class Lobby implements Runnable {
             }
         }, 20L, 20L);
 
-    }
-
-    private void init_players()
-    {
-        for (Player p : plugin.getServer().getOnlinePlayers())
-        {
-            if (players.contains(p)){
-                continue;
-            }
-            p.getInventory().clear();
-            p.getInventory().setArmorContents(null);
-            p.getInventory().addItem(getKitSelector());
-            p.setGameMode(GameMode.ADVENTURE);
-            p.setAllowFlight(true);
-            p.setHealth(p.getMaxHealth());
-            p.setFoodLevel(20);
-            p.setSaturation(1000);
-            for (PotionEffect effect : p.getActivePotionEffects())
-                p.removePotionEffect(effect.getType());
-            Location pos = HungerGames.plugin.getServer().getWorld("useless").getSpawnLocation();
-            pos.setY(pos.getY() + 100);
-            p.teleport(pos);
-            addPlayer(p);
-        }
     }
 
     public Set<Player> getPlayers() {
@@ -153,11 +123,11 @@ public class Lobby implements Runnable {
     }
 
     public void startGame(){
+        Location pos = HungerGames.plugin.getServer().getWorld("world").getSpawnLocation();
+        pos.setY(pos.getY() + 100);
         for (Player p:players) {
-            Location loc = p.getWorld().getSpawnLocation();
-            loc.setY(loc.getY() + 100);
             p.setFoodLevel(20);
-            p.teleport(loc);
+            p.teleport(pos);
             p.setSaturation(5);
             p.setGameMode(GameMode.SURVIVAL);
             p.setAllowFlight(false);
