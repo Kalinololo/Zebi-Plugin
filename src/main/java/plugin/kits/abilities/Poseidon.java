@@ -36,7 +36,7 @@ public class Poseidon extends KitListener {
 
     private void updateStrengthState(Player player) {
         if (isInOrTouchingWater(player)) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 40, 1, false, false), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.STRENGTH, 40, 0, false, false), true);
             return;
         }
 
