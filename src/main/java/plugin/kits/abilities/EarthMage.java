@@ -18,7 +18,7 @@ public class EarthMage extends KitListener {
         try {
             Player player = e.getPlayer();
             ItemStack item = e.getItem();
-            if (item != null && item.getType() == Material.DIRT
+            if (item != null && item.getType() == Material.DIAMOND
                     && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
                     && hasAbility(player)) {
                 if (isCooldowned(player, 12000)) {

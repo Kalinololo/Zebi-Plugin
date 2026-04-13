@@ -39,7 +39,7 @@ public enum ListKitContent {
 
     //ELEMENTALISTS
     WATER_MAGE_CORE(ListKit.WATER_MAGE, "Catalyseur aqueux", getNamedItem(Material.HEART_OF_THE_SEA, "§bCatalyseur aqueux")),
-    EARTH_MAGE_CORE(ListKit.EARTH_MAGE, "Noyau tellurique", getNamedItem(Material.DIRT, "§6Noyau tellurique")),
+    EARTH_MAGE_CORE(ListKit.EARTH_MAGE, "Noyau tellurique", getNamedItem(Material.DIAMOND, "§6Noyau tellurique")),
     WIND_MAGE_CORE(ListKit.WIND_MAGE, "Noyau aérien", getNamedItem(Material.FEATHER, "§fNoyau aérien")),
 
     //PYROMANIAC
@@ -122,6 +122,8 @@ public enum ListKitContent {
         for (ListKitContent kitContent: ListKitContent.values()) {
             if(kitContent == COMPASS){
                 itemsArray.add(kitContent);
+            }else if (kitContent == FOOD){
+                    itemsArray.add(kitContent);
             }else if(kitContent.getKit() == kit){
                 itemsArray.add(kitContent);
             }
