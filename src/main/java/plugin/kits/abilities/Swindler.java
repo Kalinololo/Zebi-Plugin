@@ -20,7 +20,7 @@ public class Swindler extends KitListener {
                 Player damaged = (Player) e.getEntity();
                 Player damager = (Player) e.getDamageSource().getCausingEntity();
                 EquipmentSlot item = damager.getActiveItemHand();
-                if (item != null && damager.getEquipment().getItem(item).getType() == Material.STICK && hasAbility(damager) && isCooldowned(damager, 10000))
+                if (item != null && damager.getEquipment().getItem(item).getType() == Material.STICK && hasAbility(damager) && isCooldowned(damager, 25000))
                 {
                     int index = java.util.concurrent.ThreadLocalRandom.current().nextInt(damaged.getInventory().getSize());
                     ItemStack stolenItem = damaged.getInventory().getItem(index);

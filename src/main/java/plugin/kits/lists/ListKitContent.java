@@ -3,7 +3,9 @@ package plugin.kits.lists;
 import java.util.ArrayList;
 
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -18,6 +20,31 @@ public enum ListKitContent {
     //FIREMAN
 
     FIREMAN_MAGMA(ListKit.FIREMAN, "Lance flamme", new ItemStack(Material.MAGMA_CREAM, 1)),
+
+    //GAMBLER
+    GAMBLER_DICE(ListKit.GAMBLER, "Dé du hasard", getNamedItem(Material.PAPER, "§fDé du hasard")),
+
+    //KNIGHT
+    KNIGHT_CHESTPLATE(ListKit.KNIGHT, "Plastron en fer", new ItemStack(Material.IRON_CHESTPLATE, 1)),
+    KNIGHT_BOOTS(ListKit.KNIGHT, "Bottes en cuir", new ItemStack(Material.LEATHER_BOOTS, 1)),
+
+    //NINJA
+    NINJA_SHADOWSTEP(ListKit.NINJA, "Pas de l'ombre", getNamedItem(Material.BLACK_DYE, "§8Pas de l'ombre")),
+
+    //BERSERKER
+    BERSERKER_AXE(ListKit.BERSERKER, "Hache en fer", new ItemStack(Material.IRON_AXE, 1)),
+
+    //BEASTMASTER
+    BEASTMASTER_EGG(ListKit.BEASTMASTER, "Oeuf de loup", new ItemStack(Material.WOLF_SPAWN_EGG, 1)),
+
+    //ELEMENTALISTS
+    WATER_MAGE_CORE(ListKit.WATER_MAGE, "Catalyseur aqueux", getNamedItem(Material.HEART_OF_THE_SEA, "§bCatalyseur aqueux")),
+    EARTH_MAGE_CORE(ListKit.EARTH_MAGE, "Noyau tellurique", getNamedItem(Material.DIRT, "§6Noyau tellurique")),
+    WIND_MAGE_CORE(ListKit.WIND_MAGE, "Noyau aérien", getNamedItem(Material.FEATHER, "§fNoyau aérien")),
+
+    //PYROMANIAC
+    PYROMANIAC_LAVA(ListKit.PYROMANIAC, "Seau de lave", new ItemStack(Material.LAVA_BUCKET, 1)),
+    PYROMANIAC_LIGHTER(ListKit.PYROMANIAC, "Briquet", new ItemStack(Material.FLINT_AND_STEEL, 1)),
 
     //JUMPER
     JUMPER_MUSHROOM(ListKit.JUMPER, "SAUTE !!!", new ItemStack(Material.FIREWORK_ROCKET)),
@@ -58,14 +85,16 @@ public enum ListKitContent {
     //ENDERMAGE
     ENDERMAGE_PEARL(ListKit.ENDERMAGE, "Téléporteur", new ItemStack(Material.ENDER_EYE, 1)),
 
+    FOOD("Pain", new ItemStack(Material.BREAD, 32)),
     COMPASS("Boussole", new ItemStack(Material.COMPASS, 1));
 
-    private String name;
-    private ListKit kit;
-    private ItemStack item;
+    private final String name;
+    private final ListKit kit;
+    private final ItemStack item;
 
     ListKitContent(String name, ItemStack item){
         this.name = name;
+        this.kit = null;
         this.item = item;
     }
 
@@ -90,11 +119,11 @@ public enum ListKitContent {
 
     public ArrayList<ListKitContent> getKitContent(ListKit kit){
         ArrayList<ListKitContent> itemsArray = new ArrayList<>();
-        for (ListKitContent item: ListKitContent.values()) {
-            if(item == COMPASS){
-                itemsArray.add(item);
-            }else if(item.getKit() == kit){
-                itemsArray.add(item);
+        for (ListKitContent kitContent: ListKitContent.values()) {
+            if(kitContent == COMPASS){
+                itemsArray.add(kitContent);
+            }else if(kitContent.getKit() == kit){
+                itemsArray.add(kitContent);
             }
         }
         return itemsArray;
@@ -109,6 +138,15 @@ public enum ListKitContent {
         potion.setItemMeta(effect);
 
         return potion;
+    }
+
+    public static ItemStack getNamedItem(Material material, String name){
+        ItemStack item = new ItemStack(material, 1);
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        item.setItemMeta(meta);
+        return item;
     }
 
 }

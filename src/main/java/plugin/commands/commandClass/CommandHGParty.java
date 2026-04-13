@@ -2,10 +2,9 @@ package plugin.commands.commandClass;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+
 import plugin.HungerGames;
 import plugin.commands.ICommands;
-
-import java.io.File;
 
 public class CommandHGParty implements ICommands {
 
@@ -17,6 +16,13 @@ public class CommandHGParty implements ICommands {
             }else if(args[0].equals("start")){
                 if(!HungerGames.party.setStarted(true)){
                     sender.sendMessage("La partie a déjà commencé.");
+                }
+            }
+            else if (args[0].equals("reset")){
+                if (HungerGames.party.isStarted()) {
+                    sender.sendMessage("La partie est déjà en cours, impossible de la réinitialiser.");
+                } else {
+                    HungerGames.party.restart();
                 }
             }
         }

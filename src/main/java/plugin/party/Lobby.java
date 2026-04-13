@@ -30,15 +30,19 @@ public class Lobby implements Runnable {
 
     private HungerGames plugin;
 
+    private final Hud hud;
+
     public Lobby(HungerGames plugin){
         players = new HashSet<>();
-        timer = -61;
+        timer = -181;
         isStarted = false;
         this.plugin = plugin;
+        this.hud = new Hud();
     }
 
     public void start() {
         timeTask = plugin.getServer().getScheduler().runTaskTimer(plugin, this, 20L, 20L);
+        hud.updateAll();
     }
 
 
@@ -58,8 +62,10 @@ public class Lobby implements Runnable {
             }
         }else{
             plugin.getServer().broadcastMessage("§6Pas assez de joueur pour commencer la partie.");
-            timer = -61;
+            timer = -181;
         }
+
+        hud.updateAll();
     }
 
     public void end(){
@@ -87,10 +93,20 @@ public class Lobby implements Runnable {
 
     public void addPlayer(Player p){
         players.add(p);
+        hud.updateAll();
     }
 
     public void removePlayer(Player p){
         players.remove(p);
+        hud.updateAll();
+    }
+
+    public int getTimer() {
+        return timer;
+    }
+
+    public Hud getHud() {
+        return hud;
     }
 
     public boolean isPvpActive() {
@@ -101,7 +117,7 @@ public class Lobby implements Runnable {
         World world = HungerGames.plugin.getServer().getWorld("world");
         WorldBorder border = world.getWorldBorder();
 
-        if(timer == 60){
+        if(timer == 90){
             plugin.getServer().broadcastMessage("§6Que le meilleur gagne !");
             pvpActive = true;
 
@@ -111,7 +127,7 @@ public class Lobby implements Runnable {
             border.setDamageAmount(1.0);
             border.setDamageBuffer(5.0);
         } else if(timer%15 == 0 || (timer >= 55 && timer < 60)){
-            plugin.getServer().broadcastMessage("§6Il reste " + (60-timer) + " secondes avant que le PVP s'active.");
+            plugin.getServer().broadcastMessage("§6Il reste " + (90-timer) + " secondes avant que le PVP s'active.");
         }
     }
 
@@ -120,6 +136,7 @@ public class Lobby implements Runnable {
             return false;
         }else{
             isStarted = started;
+            timer = 0;
             startGame();
             return true;
         }
@@ -167,6 +184,11 @@ public class Lobby implements Runnable {
     public void stop(){
         stopRestartTimer();
         stopTimer();
+        hud.clearAll();
         plugin.stopServer();
+    }
+
+    public void restart(){
+        timer = -181;
     }
 }

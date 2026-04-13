@@ -10,6 +10,15 @@ public enum ListKit {
 
     SWAPPER("Swapper", "Tu pratiques la bataille de boule de neige à haut niveau ? Ce kit est fait pour toi ! Touche ta cible afin d'échanger de place avec celle-ci.", new ListKitAbilities[]{ListKitAbilities.SWAP}, Material.SNOWBALL),
     FIREMAN("Fireman", "Tu lances des grosses boules de feu, un peu comme si tu étais un mage !", new ListKitAbilities[]{ListKitAbilities.FIREMAN}, Material.MAGMA_CREAM),
+    GAMBLER("Gambler", "Tu lances ton dé et le destin décide de ton sort.", new ListKitAbilities[]{ListKitAbilities.GAMBLER}, Material.PAPER),
+    KNIGHT("Knight", "Tu commences avec une armure simple mais solide.", new ListKitAbilities[]{}, Material.IRON_CHESTPLATE),
+    NINJA("Ninja", "Tu disparais dans l'ombre pour te glisser derrière ta cible.", new ListKitAbilities[]{ListKitAbilities.NINJA}, Material.BLACK_DYE),
+    BERSERKER("Berserker", "Plus tu es blessé, plus tu frappes fort.", new ListKitAbilities[]{ListKitAbilities.BERSERKER}, Material.IRON_AXE),
+    BEASTMASTER("Beastmaster", "Invoque un loup fidèle pour traquer tes ennemis.", new ListKitAbilities[]{ListKitAbilities.BEASTMASTER}, Material.WOLF_SPAWN_EGG),
+    WATER_MAGE("Water mage", "Crée une source d'eau et nage avec la grâce d'un dauphin.", new ListKitAbilities[]{ListKitAbilities.WATER_MAGE}, Material.HEART_OF_THE_SEA),
+    EARTH_MAGE("Earth mage", "Canalise la terre pour devenir plus résistant.", new ListKitAbilities[]{ListKitAbilities.EARTH_MAGE}, Material.DIRT),
+    WIND_MAGE("Wind mage", "Domine le vent pour bondir et planer.", new ListKitAbilities[]{ListKitAbilities.WIND_MAGE}, Material.FEATHER),
+    PYROMANIAC("Pyromaniac", "Le feu ne te fait rien, et tu te bats avec la lave.", new ListKitAbilities[]{ListKitAbilities.PYROMANIAC}, Material.LAVA_BUCKET),
     VAMPIRE("Vampire", "Tu es doté d'une force surhumaine et tu te découvres une certain passion pour la dégustation du sang de tes ennemis.", new ListKitAbilities[]{ListKitAbilities.VAMPIRE}, Material.REDSTONE),
     MEILLEUR("Meilleur", "Selon la prophétie, tu serais l'élu... Mais faut-il encore que tu sois prêt...",  new ListKitAbilities[]{ListKitAbilities.SECRET}, Material.BOOK),
     JUMPER("Jumper", "Tu peux sauter haut et faire mal au gens en tombant... Pas très gentil mais bon...", new ListKitAbilities[]{ListKitAbilities.JUMPER,ListKitAbilities.FREEFALL}, Material.FIREWORK_ROCKET),
@@ -24,9 +33,9 @@ public enum ListKit {
     ENDERMAGE("Endermage", "Tu manipules l'espace pour rassembler tout le monde au même endroit.", new ListKitAbilities[]{ListKitAbilities.ENDERMAGE}, Material.ENDER_EYE),
     BEGGAR("Beggar", "Tu n'as pas de kit, tu es un pauvre hère qui doit se débrouiller avec les moyens du bord !", new ListKitAbilities[]{}, Material.STICK);
 
-    private String name, description;
-    private ListKitAbilities[] abilities;
-    private Material image;
+    private final String name, description;
+    private final ListKitAbilities[] abilities;
+    private final Material image;
 
     ListKit(String name, String description, ListKitAbilities[] abilities, Material image){
         this.name = name;
@@ -58,6 +67,12 @@ public enum ListKit {
     public void fillInventory(Player p){
         p.getInventory().clear();
         p.getInventory().setArmorContents(null);
+
+        if (this == KNIGHT) {
+            p.getInventory().setChestplate(new org.bukkit.inventory.ItemStack(Material.IRON_CHESTPLATE));
+            p.getInventory().setBoots(new org.bukkit.inventory.ItemStack(Material.LEATHER_BOOTS));
+            return;
+        }
 
         for (ListKitContent item:getItems()) {
             p.getInventory().addItem(item.getItem());

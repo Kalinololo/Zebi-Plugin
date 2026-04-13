@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+
 import plugin.kits.KitListener;
 
 public class Endermage extends KitListener {
@@ -19,7 +20,7 @@ public class Endermage extends KitListener {
                     && (e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK)
                     && hasAbility(player)) {
                 if (isCooldowned(player, 30000)) {
-                    Block targetBlock = player.getTargetBlockExact(50);
+                    Block targetBlock = player.getTargetBlockExact(15);
                     if (targetBlock != null) {
                         Location targetLocation = targetBlock.getLocation().add(0.5, 1.0, 0.5);
                         for (Player target : player.getWorld().getPlayers()) {

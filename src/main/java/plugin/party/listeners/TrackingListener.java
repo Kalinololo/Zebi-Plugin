@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+
 import plugin.HungerGames;
 
 public class TrackingListener implements Listener {
@@ -20,7 +21,7 @@ public class TrackingListener implements Listener {
             if(e.getItem().getType() == Material.COMPASS){
                 Player player = e.getPlayer();
                 double distance = player.getLocation().distance(getNearestPlayer(player).getLocation());
-                player.sendMessage("§6Le joueur le plus proche est à §l" + (int) distance + " blocs.");
+                player.sendMessage("§6Le joueur le plus proche est " + getNearestPlayer(player).getName() + " à §l" + (int) distance + " blocs.");
                 if((int) distance == 0){
                     player.sendMessage("§6Il faut ouvrir les yeux, tu fais pas d'effort la.");
                 }
