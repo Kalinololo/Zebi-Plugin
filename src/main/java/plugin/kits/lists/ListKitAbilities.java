@@ -6,9 +6,12 @@ import plugin.HungerGames;
 import plugin.commands.commandClass.CommandEz;
 import plugin.kits.KitListener;
 import plugin.kits.abilities.Abort;
+import plugin.kits.abilities.Assassin;
 import plugin.kits.abilities.Cavalier;
 import plugin.kits.abilities.Fireman;
 import plugin.kits.abilities.GrandMere;
+import plugin.kits.abilities.Endermage;
+import plugin.kits.abilities.Madman;
 import plugin.kits.abilities.Jumper;
 import plugin.kits.abilities.Poseidon;
 import plugin.kits.abilities.Stomper;
@@ -30,7 +33,10 @@ public enum ListKitAbilities {
     ABORT("ABORT", new Abort()),
     POSEIDON("POSEIDON", new Poseidon()),
     SWINDLER("SWINDLER", new Swindler()),
-    THOR("THOR", new Thor());
+    THOR("THOR", new Thor()),
+    MADMAN("MADMAN", new Madman()),
+    ASSASSIN("ASSASSIN", new Assassin()),
+    ENDERMAGE("ENDERMAGE", new Endermage());
 
 
     private String name;

@@ -12,10 +12,6 @@ Developed as a learning project focused on gameplay systems, multiplayer logic, 
 - Player tracking system using a compass
 - Death announcements and in-game event handling
 
-## Missing / Incomplete Features
-- World management system (automatic world reset or switching between matches)
-- Additional kits originally planned but not implemented
-
 ## Project Status
 Archived learning project.  
 The core gameplay systems are mostly functional, but the project is unfinished and no longer actively maintained.

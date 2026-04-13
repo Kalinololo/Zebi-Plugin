@@ -15,10 +15,13 @@ public enum ListKit {
     JUMPER("Jumper", "Tu peux sauter haut et faire mal au gens en tombant... Pas très gentil mais bon...", new ListKitAbilities[]{ListKitAbilities.JUMPER,ListKitAbilities.FREEFALL}, Material.FIREWORK_ROCKET),
     GRANDMERE("Grand-Mère", "Tu bois ta soupe comme une bonne grand-mère", new ListKitAbilities[]{ListKitAbilities.GRANDMERE}, Material.MUSHROOM_STEW),
     CAVALIER("Cavalier", "Tu es un cavalier, tu peux galoper à travers les champs de bataille et écraser tes ennemis !", new ListKitAbilities[]{ListKitAbilities.CAVALIER}, Material.SADDLE),
-    ABORT("Abort", "Tu peux dash dans tous les sens et etre un veritable moustique pour tes adversaires !", new ListKitAbilities[]{ListKitAbilities.ABORT}, Material.ENDER_EYE),
+    ABORT("Abort", "Tu peux dash dans tous les sens et etre un veritable moustique pour tes adversaires !", new ListKitAbilities[]{ListKitAbilities.ABORT}, Material.ENDER_PEARL),
     POSEIDON("Poseidon", "Tu es le dieu de la mer, tant que tu es dans l'eau personne ne peut te resister !", new ListKitAbilities[]{ListKitAbilities.POSEIDON}, Material.WATER_BUCKET),
     SWINDLER("Swindler", "Tu es un vrai p'tit filou !", new ListKitAbilities[]{ListKitAbilities.SWINDLER}, Material.STICK),
     THOR("Thor", "Tu es le dieu du tonnerre, tu peux faire tomber la foudre sur tes ennemis !", new ListKitAbilities[]{ListKitAbilities.THOR}, Material.MACE),
+    MADMAN("Madman", "Tu plonges les ennemis dans le chaos avec une attaque de zone !", new ListKitAbilities[]{ListKitAbilities.MADMAN}, Material.BLAZE_ROD),
+    ASSASSIN("Assassin", "Tu surgis dans l'ombre, prêt à frapper sans être vu.", new ListKitAbilities[]{ListKitAbilities.ASSASSIN}, Material.STONE_SWORD),
+    ENDERMAGE("Endermage", "Tu manipules l'espace pour rassembler tout le monde au même endroit.", new ListKitAbilities[]{ListKitAbilities.ENDERMAGE}, Material.ENDER_EYE),
     BEGGAR("Beggar", "Tu n'as pas de kit, tu es un pauvre hère qui doit se débrouiller avec les moyens du bord !", new ListKitAbilities[]{}, Material.STICK);
 
     private String name, description;

@@ -14,7 +14,7 @@ public class KitListener implements Listener {
 
     protected transient Set<Player> myPlayers = new HashSet<Player>();
 
-    private static HashMap<Player, Date> cooldownManager = new HashMap<>();
+    private static HashMap<String, Date> cooldownManager = new HashMap<>();
 
     public boolean hasAbility(Player p) {
         return myPlayers.contains(p);
@@ -38,18 +38,19 @@ public class KitListener implements Listener {
     }
 
     public boolean isCooldowned(Player p, int cooldown) {
+        String cooldownKey = p.getUniqueId() + ":" + getClass().getName();
         Date now = new Date(System.currentTimeMillis());
-        if (cooldownManager.containsKey(p)) {
-            if (now.getTime() - cooldownManager.get(p).getTime() >= cooldown) {
-                cooldownManager.replace(p, now);
+        if (cooldownManager.containsKey(cooldownKey)) {
+            if (now.getTime() - cooldownManager.get(cooldownKey).getTime() >= cooldown) {
+                cooldownManager.replace(cooldownKey, now);
                 return true;
             } else {
-                double timeRemain = (cooldown * 0.001) - ((now.getTime() - cooldownManager.get(p).getTime()) * 0.001);
+                double timeRemain = (cooldown * 0.001) - ((now.getTime() - cooldownManager.get(cooldownKey).getTime()) * 0.001);
                 p.sendMessage("§6 Vous devez encore attendre " + (double) Math.round(timeRemain * 100) / 100 + " secondes.");
                 return false;
             }
         } else {
-            cooldownManager.put(p, now);
+            cooldownManager.put(cooldownKey, now);
             return true;
         }
     }

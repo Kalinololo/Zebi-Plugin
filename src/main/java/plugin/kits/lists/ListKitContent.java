@@ -35,10 +35,10 @@ public enum ListKitContent {
     CAVALIER_SADDLE(ListKit.CAVALIER, "Selle", new ItemStack(Material.SADDLE, 1)),
     CAVALIER_LEAD(ListKit.CAVALIER, "Laisse", new ItemStack(Material.LEAD, 1)),
     CAVALIER_BOW(ListKit.CAVALIER, "Arc", new ItemStack(Material.BOW, 1)),
-    CAVALIER_ARROW(ListKit.CAVALIER, "Flèche x8", new ItemStack(Material.ARROW, 8)),
+    CAVALIER_ARROW(ListKit.CAVALIER, "Flèche x16", new ItemStack(Material.ARROW, 16)),
 
     //ABORT
-    ABORT_EYE(ListKit.ABORT, "Oeil de l'Ender", new ItemStack(Material.ENDER_EYE, 1)),
+    ABORT_EYE(ListKit.ABORT, "Oeil de l'Ender", new ItemStack(Material.ENDER_PEARL, 1)),
 
     //POSEIDON
     POSEIDON_BUCKET(ListKit.POSEIDON, "Seau d'eau", new ItemStack(Material.WATER_BUCKET, 1)),
@@ -48,6 +48,15 @@ public enum ListKitContent {
 
     //THOR
     THOR_HAMMER(ListKit.THOR, "Marteau de Thor", new ItemStack(Material.MACE, 1)),
+
+    //MADMAN
+    MADMAN_BLAZE_ROD(ListKit.MADMAN, "Bâton du chaos", new ItemStack(Material.BLAZE_ROD, 1)),
+
+    //ASSASSIN
+    ASSASSIN_SWORD(ListKit.ASSASSIN, "Épée en pierre", new ItemStack(Material.STONE_SWORD, 1)),
+
+    //ENDERMAGE
+    ENDERMAGE_PEARL(ListKit.ENDERMAGE, "Téléporteur", new ItemStack(Material.ENDER_EYE, 1)),
 
     COMPASS("Boussole", new ItemStack(Material.COMPASS, 1));
 
